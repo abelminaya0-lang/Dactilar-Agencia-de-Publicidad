@@ -29,7 +29,6 @@ const VideoReelItem: React.FC<VideoReelItemProps> = ({ src, index, isActive, onP
     if (!isActive) {
       onPlay(index);
     } else {
-      // Si ya está activo, permitimos pausar manualmente
       if (videoRef.current) {
         if (videoRef.current.paused) {
           videoRef.current.play();
@@ -43,8 +42,8 @@ const VideoReelItem: React.FC<VideoReelItemProps> = ({ src, index, isActive, onP
   return (
     <div 
       onClick={handleToggle}
-      className={`relative aspect-[9/16] bg-zinc-900 rounded-2xl overflow-hidden group shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border transition-all duration-700 cursor-pointer w-full mx-auto ${
-        isActive ? 'border-brand-red/50 scale-[1.02]' : 'border-white/5 opacity-90 hover:opacity-100'
+      className={`relative aspect-[9/16] bg-zinc-900 rounded-2xl overflow-hidden group shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border transition-all duration-700 cursor-pointer w-full mx-auto ${
+        isActive ? 'border-brand-red/60 scale-[1.02] z-10' : 'border-white/10 opacity-100 hover:border-white/30'
       }`}
     >
       <video 
@@ -56,16 +55,16 @@ const VideoReelItem: React.FC<VideoReelItemProps> = ({ src, index, isActive, onP
         className={`w-full h-full object-cover transition-all duration-1000 ${isActive ? 'scale-105' : 'scale-100'}`}
       />
       
-      {/* Overlay Gradients */}
-      <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 transition-opacity duration-500 ${isActive ? 'opacity-40' : 'opacity-100'}`}></div>
+      {/* Overlay Gradients - Lightened to see the video better */}
+      <div className={`absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 transition-opacity duration-500 ${isActive ? 'opacity-20' : 'opacity-60'}`}></div>
       
-      {/* Play/Pause Button - Central and Large */}
+      {/* Play/Pause Button */}
       <div className="absolute inset-0 flex items-center justify-center z-20">
         <div 
-          className={`w-20 h-20 md:w-24 md:h-24 flex items-center justify-center rounded-full backdrop-blur-md border border-white/20 transition-all duration-500 ${
+          className={`w-20 h-20 md:w-24 md:h-24 flex items-center justify-center rounded-full backdrop-blur-md border border-white/30 transition-all duration-500 ${
             isActive 
             ? 'bg-brand-red text-white scale-90 opacity-0 group-hover:opacity-100' 
-            : 'bg-white/10 text-white group-hover:scale-110 group-hover:bg-brand-red shadow-2xl'
+            : 'bg-white/20 text-white group-hover:scale-110 group-hover:bg-brand-red shadow-2xl'
           }`}
         >
           {isActive ? <Pause size={32} fill="currentColor" /> : <Play size={32} fill="currentColor" className="ml-1" />}
@@ -85,9 +84,9 @@ const VideoReelItem: React.FC<VideoReelItemProps> = ({ src, index, isActive, onP
       {/* Label Info */}
       <div className="absolute bottom-8 left-8 right-8 flex items-center justify-between z-10 pointer-events-none">
         <div className="flex flex-col">
-          <span className="text-[11px] font-bold text-white/70 uppercase tracking-[0.4em]">PRODUCCIÓN 0{index + 1}</span>
+          <span className="text-[11px] font-bold text-white uppercase tracking-[0.4em] drop-shadow-md">PRODUCCIÓN 0{index + 1}</span>
           {!isActive && (
-            <span className="text-[9px] text-white/40 font-medium uppercase mt-2 tracking-wider">Click para reproducir con sonido</span>
+            <span className="text-[9px] text-white/70 font-medium uppercase mt-2 tracking-wider drop-shadow-sm">Click para reproducir con sonido</span>
           )}
         </div>
       </div>
@@ -163,7 +162,7 @@ const AdvertisingPhotography: React.FC = () => {
           </div>
           <h2 className="text-[2rem] md:text-[5rem] font-heading font-[900] uppercase tracking-tighter leading-[0.9] text-white">
             Fotografía <br />
-            <span className="text-transparent [-webkit-text-stroke:1px_rgba(242,242,242,0.4)] italic text-[1.8rem] md:text-[4.5rem]">PUBLICITARIA</span>
+            <span className="text-transparent [-webkit-text-stroke:1px_rgba(242,242,242,0.6)] italic text-[1.8rem] md:text-[4.5rem]">PUBLICITARIA</span>
           </h2>
         </div>
 
@@ -180,21 +179,21 @@ const AdvertisingPhotography: React.FC = () => {
                     {section.title}
                   </h3>
                 </div>
-                <p className="text-zinc-500 text-sm md:text-base max-w-xl font-light">
+                <p className="text-zinc-400 text-sm md:text-base max-w-xl font-light">
                   {section.description}
                 </p>
               </div>
 
-              {/* Image Grid - Asymmetric Editorial Layout */}
+              {/* Image Grid - Colors Restored */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
                 {/* Main Large Image */}
                 <div className={`md:col-span-7 overflow-hidden rounded-sm group relative ${sIdx % 2 !== 0 ? 'md:order-2' : ''}`}>
                   <img 
                     src={section.images[0]} 
                     alt={section.title} 
-                    className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-[1.5s] group-hover:scale-110"
+                    className="w-full h-full object-cover transition-all duration-[1.5s] group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                 </div>
 
                 {/* Two smaller images stacked */}
@@ -203,17 +202,17 @@ const AdvertisingPhotography: React.FC = () => {
                     <img 
                       src={section.images[1]} 
                       alt={section.title} 
-                      className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-[1.5s] group-hover:scale-110"
+                      className="w-full h-full object-cover transition-all duration-[1.5s] group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                    <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                   </div>
                   <div className="overflow-hidden rounded-sm group relative">
                     <img 
                       src={section.images[2]} 
                       alt={section.title} 
-                      className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-[1.5s] group-hover:scale-110"
+                      className="w-full h-full object-cover transition-all duration-[1.5s] group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                    <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                   </div>
                 </div>
               </div>
@@ -229,7 +228,7 @@ const AdvertisingPhotography: React.FC = () => {
                   Producción de Reels & Video
                 </h3>
               </div>
-              <p className="text-zinc-500 text-sm md:text-lg max-w-2xl font-light">
+              <p className="text-zinc-400 text-sm md:text-lg max-w-2xl font-light">
                 Contenido dinámico diseñado para impactar en segundos. Estrategia visual exclusiva para redes sociales.
               </p>
             </div>
@@ -253,10 +252,10 @@ const AdvertisingPhotography: React.FC = () => {
         <div className="mt-24 pt-12 border-t border-zinc-900 flex justify-center">
            <button 
              onClick={scrollToContact}
-             className="flex items-center gap-4 group px-12 py-5 bg-white/5 border border-white/10 rounded-full hover:bg-brand-red hover:border-brand-red transition-all duration-500"
+             className="flex items-center gap-4 group px-12 py-5 bg-white/5 border border-white/10 rounded-full hover:bg-brand-red hover:border-brand-red transition-all duration-500 shadow-xl"
            >
               <Camera size={18} className="text-brand-red group-hover:text-white group-hover:rotate-12 transition-all" />
-              <span className="text-[11px] font-heading font-bold uppercase tracking-[0.4em] text-zinc-400 group-hover:text-white transition-colors">
+              <span className="text-[11px] font-heading font-bold uppercase tracking-[0.4em] text-white group-hover:text-white transition-colors">
                 quiero grabar con ustedes
               </span>
            </button>
