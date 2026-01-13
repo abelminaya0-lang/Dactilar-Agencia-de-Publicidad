@@ -34,17 +34,17 @@ const TeamSection: React.FC = () => {
         </h2>
       </div>
 
-      {/* Main Team Photo Section - Colors Restored */}
+      {/* Main Team Photo Section - Vibrant Colors */}
       <div className="relative w-full max-w-[1400px] mx-auto px-4 md:px-12 z-10 mb-12 md:mb-20">
         <div className="relative aspect-video md:aspect-[21/9] overflow-hidden rounded-[2px] border border-white/10 group">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 z-10"></div>
           <img 
             src="https://res.cloudinary.com/drvs81bl0/image/upload/v1768019857/480207177_930559259270589_5359730124350354525_n_gy62zw.jpg" 
             alt="Dactilar Team"
             className="w-full h-full object-cover transition-all duration-[2s] scale-100 group-hover:scale-105"
           />
           
-          {/* Subtle Brand Overlay - Reduced */}
+          {/* Subtle Brand Overlay */}
           <div className="absolute inset-0 bg-brand-red/5 mix-blend-overlay z-20 pointer-events-none"></div>
           
           {/* Action Caption */}

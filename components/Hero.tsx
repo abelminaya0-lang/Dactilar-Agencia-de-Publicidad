@@ -21,14 +21,14 @@ const Hero: React.FC = () => {
             className="hidden md:block w-full h-full object-cover object-center scale-100 animate-[ken-burns_30s_ease-in-out_infinite_alternate]"
           />
 
-          {/* Luxury Gradient Overlay - Lightened for visibility */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40"></div>
+          {/* Luxury Gradient Overlay - Reducido para mayor claridad */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30"></div>
         </div>
       </div>
 
-      {/* Subtle Scroll Indicator - White glow for contrast */}
+      {/* Subtle Scroll Indicator */}
       <div className="absolute bottom-56 md:bottom-72 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20">
-        <div className="w-[1px] h-16 bg-gradient-to-b from-white to-transparent shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>
+        <div className="w-[1px] h-16 bg-gradient-to-b from-white to-transparent shadow-[0_0_15px_rgba(255,255,255,0.4)]"></div>
       </div>
 
       <style>{`

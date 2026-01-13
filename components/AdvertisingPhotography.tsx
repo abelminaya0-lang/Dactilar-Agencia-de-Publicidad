@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Utensils, Briefcase, HeartPulse, Camera, Play, Pause, Instagram, Volume2, VolumeX } from 'lucide-react';
+import { Utensils, Briefcase, HeartPulse, Camera, Play, Pause, Instagram, Volume2 } from 'lucide-react';
 
 interface VideoReelItemProps {
   src: string;
@@ -42,7 +42,7 @@ const VideoReelItem: React.FC<VideoReelItemProps> = ({ src, index, isActive, onP
   return (
     <div 
       onClick={handleToggle}
-      className={`relative aspect-[9/16] bg-zinc-900 rounded-2xl overflow-hidden group shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border transition-all duration-700 cursor-pointer w-full mx-auto ${
+      className={`relative aspect-[9/16] bg-zinc-900 rounded-2xl overflow-hidden group shadow-[0_30px_70px_-15px_rgba(0,0,0,0.6)] border transition-all duration-700 cursor-pointer w-full mx-auto ${
         isActive ? 'border-brand-red/60 scale-[1.02] z-10' : 'border-white/10 opacity-100 hover:border-white/30'
       }`}
     >
@@ -55,8 +55,8 @@ const VideoReelItem: React.FC<VideoReelItemProps> = ({ src, index, isActive, onP
         className={`w-full h-full object-cover transition-all duration-1000 ${isActive ? 'scale-105' : 'scale-100'}`}
       />
       
-      {/* Overlay Gradients - Lightened to see the video better */}
-      <div className={`absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 transition-opacity duration-500 ${isActive ? 'opacity-20' : 'opacity-60'}`}></div>
+      {/* Overlay Gradients - Lightened */}
+      <div className={`absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10 transition-opacity duration-500 ${isActive ? 'opacity-20' : 'opacity-60'}`}></div>
       
       {/* Play/Pause Button */}
       <div className="absolute inset-0 flex items-center justify-center z-20">
@@ -86,7 +86,7 @@ const VideoReelItem: React.FC<VideoReelItemProps> = ({ src, index, isActive, onP
         <div className="flex flex-col">
           <span className="text-[11px] font-bold text-white uppercase tracking-[0.4em] drop-shadow-md">PRODUCCIÓN 0{index + 1}</span>
           {!isActive && (
-            <span className="text-[9px] text-white/70 font-medium uppercase mt-2 tracking-wider drop-shadow-sm">Click para reproducir con sonido</span>
+            <span className="text-[9px] text-white/80 font-medium uppercase mt-2 tracking-wider drop-shadow-sm">Click para reproducir con sonido</span>
           )}
         </div>
       </div>
@@ -184,7 +184,7 @@ const AdvertisingPhotography: React.FC = () => {
                 </p>
               </div>
 
-              {/* Image Grid - Colors Restored */}
+              {/* Image Grid - Grayscale Removed for Vibrancy */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
                 {/* Main Large Image */}
                 <div className={`md:col-span-7 overflow-hidden rounded-sm group relative ${sIdx % 2 !== 0 ? 'md:order-2' : ''}`}>
@@ -219,7 +219,7 @@ const AdvertisingPhotography: React.FC = () => {
             </div>
           ))}
 
-          {/* BLOQUE: Producción de Reels & Video - Vertical Layout */}
+          {/* BLOQUE: Producción de Reels & Video - Vertical Stack */}
           <div className="flex flex-col space-y-16 pt-12">
             <div className="flex flex-col items-center text-center space-y-6">
               <div className="flex items-center gap-4 text-brand-red">
