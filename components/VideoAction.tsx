@@ -5,24 +5,22 @@ const VideoAction: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      // Configuramos el video para que no esté silenciado
-      videoRef.current.muted = false;
+    const video = videoRef.current;
+    if (video) {
+      // Forzamos el volumen al máximo y desactivamos el silencio
+      video.volume = 1.0;
+      video.muted = false;
       
-      // Intentamos reproducir el video con sonido automáticamente
-      const playPromise = videoRef.current.play();
+      // Intentamos la reproducción con audio
+      const playPromise = video.play();
       
       if (playPromise !== undefined) {
         playPromise.catch(error => {
-          // Nota técnica: Los navegadores modernos a menudo bloquean el autoplay con sonido 
-          // sin una interacción previa del usuario. Este log ayuda a debugear si sucede.
-          console.log("El navegador bloqueó el audio automático. Se requiere interacción del usuario.");
-          
-          // Fallback opcional: si se bloquea el audio, reproducir silenciado para que al menos se vea el video
-          if (videoRef.current) {
-            videoRef.current.muted = true;
-            videoRef.current.play();
-          }
+          // Si el navegador bloquea el audio automático por política de usuario,
+          // iniciamos silenciado para que al menos el video se reproduzca visualmente.
+          console.log("Audio automático bloqueado. Iniciando silenciado como respaldo.");
+          video.muted = true;
+          video.play();
         });
       }
     }
@@ -41,7 +39,7 @@ const VideoAction: React.FC = () => {
       <div className="absolute top-0 left-[-5%] w-[50%] h-[50%] bg-brand-red/10 blur-[180px] rounded-full pointer-events-none"></div>
       
       <div className="relative z-10 w-full max-w-5xl flex flex-col items-center gap-8">
-        {/* The Video Container - Muted removed for Audio activation */}
+        {/* The Video Container */}
         <div className="w-full relative rounded-2xl md:rounded-[4rem] overflow-hidden border-[1px] border-white/20 shadow-[0_60px_120px_rgba(0,0,0,0.9),0_0_100px_rgba(217,54,17,0.15)] bg-black">
           <video 
             ref={videoRef}
@@ -50,7 +48,7 @@ const VideoAction: React.FC = () => {
             playsInline
             controls
             className="w-full h-auto block"
-            // No incluimos 'loop' para que se detenga al finalizar
+            // No incluimos 'loop' para que se detenga automáticamente al finalizar
           >
             Tu navegador no soporta el elemento de video.
           </video>
