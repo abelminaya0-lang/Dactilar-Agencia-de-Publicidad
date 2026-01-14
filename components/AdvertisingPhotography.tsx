@@ -1,96 +1,124 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Utensils, Briefcase, HeartPulse, Camera, Play, Pause, Instagram, Volume2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Utensils, Briefcase, HeartPulse, Palette, Camera, Play, Pause, Instagram, Volume2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface FanCarouselProps {
   images: string[];
   category: string;
+  isBranding?: boolean;
 }
 
-const FanCarousel: React.FC<FanCarouselProps> = ({ images, category }) => {
+const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding = false }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Sincroniza el índice activo detectando qué imagen está más cerca del centro del contenedor
   const handleScroll = () => {
     if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-      const itemWidth = window.innerWidth < 768 ? clientWidth : 600;
-      // Compensamos el padding inicial para calcular el índice correctamente
-      const index = Math.round(scrollLeft / itemWidth);
-      if (index !== activeIndex && index >= 0 && index < images.length) {
-        setActiveIndex(index);
+      const container = scrollRef.current;
+      const containerCenter = container.scrollLeft + container.clientWidth / 2;
+      const children = Array.from(container.children);
+      
+      let closestIndex = 0;
+      let minDistance = Infinity;
+
+      children.forEach((child, index) => {
+        // Solo evaluamos los elementos que son imágenes, no el espaciador final
+        if (index < images.length) {
+          const childElement = child as HTMLElement;
+          const childCenter = childElement.offsetLeft + childElement.clientWidth / 2;
+          const distance = Math.abs(containerCenter - childCenter);
+          
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = index;
+          }
+        }
+      });
+
+      if (closestIndex !== activeIndex) {
+        setActiveIndex(closestIndex);
       }
     }
   };
 
+  // Navegación con bucle infinito (Loop) para todas las categorías
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const { clientWidth, scrollWidth } = scrollRef.current;
-      const itemWidth = window.innerWidth < 768 ? clientWidth : 600;
-      
-      if (direction === 'right') {
-        // Si estamos en la última foto, volvemos a la primera
-        if (activeIndex === images.length - 1) {
-          scrollRef.current.scrollTo({
-            left: 0,
-            behavior: 'smooth'
-          });
-        } else {
-          scrollRef.current.scrollBy({
-            left: itemWidth,
-            behavior: 'smooth'
-          });
-        }
-      } else {
-        // Si estamos en la primera foto, vamos a la última
-        if (activeIndex === 0) {
-          scrollRef.current.scrollTo({
-            left: scrollWidth,
-            behavior: 'smooth'
-          });
-        } else {
-          scrollRef.current.scrollBy({
-            left: -itemWidth,
-            behavior: 'smooth'
-          });
-        }
+      const container = scrollRef.current;
+      const children = container.children;
+      let nextIndex = direction === 'right' ? activeIndex + 1 : activeIndex - 1;
+
+      // Lógica de retorno (Looping)
+      if (nextIndex >= images.length) nextIndex = 0;
+      if (nextIndex < 0) nextIndex = images.length - 1;
+
+      const targetElement = children[nextIndex] as HTMLElement;
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
       }
     }
   };
 
   return (
     <div className="relative group w-full">
-      <button 
-        onClick={() => scroll('left')}
-        className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-40 w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/40 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white hover:bg-brand-red transition-all duration-500 shadow-2xl opacity-0 group-hover:opacity-100"
-      >
-        <ChevronLeft size={24} />
-      </button>
-      
-      <button 
-        onClick={() => scroll('right')}
-        className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-40 w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/40 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white hover:bg-brand-red transition-all duration-500 shadow-2xl opacity-0 group-hover:opacity-100"
-      >
-        <ChevronRight size={24} />
-      </button>
+      {/* Controles de Navegación - Persistentes y con alto Z-Index */}
+      <div className="absolute inset-0 z-[110] pointer-events-none flex items-center justify-between px-4 md:px-10">
+        <button 
+          onClick={() => scroll('left')}
+          aria-label="Anterior"
+          className="pointer-events-auto w-14 h-14 md:w-24 md:h-24 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-brand-red hover:border-brand-red hover:scale-110 transition-all duration-500 shadow-2xl opacity-100 md:opacity-0 md:group-hover:opacity-100 group/btn"
+        >
+          <ChevronLeft size={32} className="md:w-12 md:h-12 group-hover/btn:-translate-x-1 transition-transform" strokeWidth={1.5} />
+        </button>
+        
+        <button 
+          onClick={() => scroll('right')}
+          aria-label="Siguiente"
+          className="pointer-events-auto w-14 h-14 md:w-24 md:h-24 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-brand-red hover:border-brand-red hover:scale-110 transition-all duration-500 shadow-2xl opacity-100 md:opacity-0 md:group-hover:opacity-100 group/btn"
+        >
+          <ChevronRight size={32} className="md:w-12 md:h-12 group-hover/btn:translate-x-1 transition-transform" strokeWidth={1.5} />
+        </button>
+      </div>
 
+      {/* Indicadores y Contador */}
+      <div className="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 z-[110] flex flex-col items-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500">
+         <div className="bg-black/80 backdrop-blur-xl px-4 md:px-6 py-1.5 rounded-full border border-white/10 shadow-2xl">
+           <span className="text-[10px] md:text-[12px] font-heading font-black text-white tracking-[0.3em] uppercase">
+             {String(activeIndex + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
+           </span>
+         </div>
+         <div className="flex gap-1.5 md:gap-2.5">
+           {images.map((_, i) => (
+             <div 
+               key={i} 
+               className={`h-1 rounded-full transition-all duration-500 ${i === activeIndex ? 'w-8 md:w-12 bg-brand-red shadow-[0_0_15px_rgba(217,54,17,0.6)]' : 'w-2 md:w-3 bg-white/20'}`} 
+             />
+           ))}
+         </div>
+      </div>
+
+      {/* Galería con Efecto Fan y Snap Alignment */}
       <div 
         ref={scrollRef}
         onScroll={handleScroll}
-        className="flex gap-0 overflow-x-auto snap-x snap-mandatory no-scrollbar perspective-[1200px] py-10 md:py-16 px-[10%] md:px-[35%]"
-        style={{ scrollBehavior: 'smooth' }}
+        className="flex gap-0 overflow-x-auto snap-x snap-mandatory no-scrollbar perspective-[2000px] py-16 md:py-36 px-[5%] md:px-[25%]"
       >
         {images.map((img, idx) => {
           const distance = Math.abs(idx - activeIndex);
-          const rotation = (idx - activeIndex) * -12;
-          const scale = 1 - Math.min(distance * 0.12, 0.35);
-          const opacity = 1 - Math.min(distance * 0.3, 0.6);
-          const zIndex = 50 - distance;
+          const rotation = (idx - activeIndex) * (isBranding ? -3 : -7);
+          const scale = 1 - Math.min(distance * (isBranding ? 0.03 : 0.07), 0.3);
+          const opacity = 1 - Math.min(distance * 0.15, 0.4);
+          const zIndex = 100 - distance;
 
           return (
             <div 
               key={idx}
-              className="flex-none w-full md:w-[600px] aspect-square snap-center transition-all duration-700 ease-out"
+              className={`flex-none w-full ${isBranding ? 'md:w-[850px]' : 'md:w-[600px]'} aspect-square md:aspect-video snap-center transition-all duration-1000 cubic-bezier(0.2, 1, 0.3, 1)`}
               style={{
                 transform: `rotateY(${rotation}deg) scale(${scale})`,
                 opacity: opacity,
@@ -98,18 +126,20 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category }) => {
                 transformStyle: 'preserve-3d'
               }}
             >
-              <div className="w-full h-full rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.7)] relative group/img">
+              <div className={`w-full h-full rounded-[1.8rem] md:rounded-[4.5rem] overflow-hidden border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.9)] relative group/img bg-[#050505]`}>
                 <img 
                   src={img} 
                   alt={`${category} ${idx}`} 
-                  className="w-full h-full object-cover transition-transform duration-[4s] group-hover/img:scale-110"
+                  className={`w-full h-full transition-transform duration-[6s] group-hover/img:scale-110 ${isBranding ? 'object-contain p-6 md:p-12' : 'object-cover'}`}
+                  style={{ filter: 'brightness(1.1) contrast(1.05)' }} 
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-transparent opacity-30 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-transparent opacity-20 pointer-events-none"></div>
               </div>
             </div>
           );
         })}
-        <div className="flex-none w-[10%] md:w-[20%] h-full"></div>
+        {/* Espaciador para centrado correcto del último elemento */}
+        <div className="flex-none w-[10%] md:w-[20%] h-full pointer-events-none"></div>
       </div>
     </div>
   );
@@ -118,7 +148,6 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category }) => {
 const VideoReelItem: React.FC<{src: string, index: number, clientName: string, isActive: boolean, onPlay: (n: number) => void}> = ({ src, index, clientName, isActive, onPlay }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   
-  // Generar URL de portada (poster) para videos de Cloudinary
   const getPosterUrl = (url: string) => {
     if (url.includes('cloudinary.com')) {
       return url.replace(/\.[^/.]+$/, ".jpg");
@@ -139,20 +168,17 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
   }, [isActive]);
 
   return (
-    <div className="relative w-full max-w-[320px] mx-auto group">
-      {/* Smartphone Frame Wrapper */}
-      <div className={`relative aspect-[9/19.5] bg-[#0a0a0a] rounded-[3rem] p-3 border-[6px] border-[#1a1a1a] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.9)] transition-all duration-700 ${isActive ? 'scale-[1.05] ring-2 ring-brand-red/30' : 'hover:scale-[1.02]'}`}>
+    <div className="relative w-full max-w-[280px] md:max-w-[320px] mx-auto group">
+      <div className={`relative aspect-[9/19.5] bg-[#080808] rounded-[2.5rem] md:rounded-[3.5rem] p-2 md:p-3 border-[6px] md:border-[8px] border-[#151515] shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] transition-all duration-1000 ${isActive ? 'scale-[1.05] md:scale-[1.08] ring-2 md:ring-4 ring-brand-red/20' : 'hover:scale-[1.02]'}`}>
         
-        {/* Notch / Speaker */}
-        <div className="absolute top-6 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#0a0a0a] rounded-full z-30 flex items-center justify-center gap-2">
-           <div className="w-8 h-1 bg-[#1a1a1a] rounded-full"></div>
-           <div className="w-1.5 h-1.5 bg-[#1a1a1a] rounded-full"></div>
+        <div className="absolute top-5 md:top-7 left-1/2 -translate-x-1/2 w-16 md:w-24 h-4 md:h-6 bg-[#080808] rounded-full z-30 flex items-center justify-center gap-2 md:gap-3">
+           <div className="w-8 md:w-10 h-1 md:h-1.5 bg-[#151515] rounded-full"></div>
+           <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-[#151515] rounded-full"></div>
         </div>
 
-        {/* Screen Content */}
         <div 
           onClick={() => onPlay(isActive ? -1 : index)}
-          className="relative w-full h-full rounded-[2.2rem] overflow-hidden cursor-pointer"
+          className="relative w-full h-full rounded-[2rem] md:rounded-[2.8rem] overflow-hidden cursor-pointer"
         >
           <video 
             ref={videoRef} 
@@ -161,38 +187,33 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
             muted 
             playsInline 
             poster={getPosterUrl(src)}
-            className="w-full h-full object-cover bg-zinc-900" 
+            className="w-full h-full object-cover bg-zinc-950" 
           />
           
-          {/* Overlay when not active */}
-          <div className={`absolute inset-0 bg-black/40 transition-opacity duration-500 ${isActive ? 'opacity-0' : 'opacity-60'}`}></div>
+          <div className={`absolute inset-0 bg-black/40 transition-opacity duration-700 ${isActive ? 'opacity-0' : 'opacity-60'}`}></div>
           
-          {/* Central Play/Pause Button */}
           <div className="absolute inset-0 flex items-center justify-center z-20">
-            <div className={`w-16 h-16 flex items-center justify-center rounded-full backdrop-blur-md border border-white/30 transition-all duration-500 ${isActive ? 'bg-brand-red opacity-0 group-hover:opacity-100 scale-75' : 'bg-white/20 scale-100'}`}>
-              {isActive ? <Pause size={28} fill="currentColor" /> : <Play size={28} fill="currentColor" className="ml-1" />}
+            <div className={`w-14 h-14 md:w-20 md:h-20 flex items-center justify-center rounded-full backdrop-blur-xl border border-white/20 transition-all duration-700 ${isActive ? 'bg-brand-red opacity-0 group-hover:opacity-100 scale-75' : 'bg-white/10 scale-100'}`}>
+              {isActive ? <Pause size={24} fill="currentColor" /> : <Play size={24} fill="currentColor" className="ml-1" />}
             </div>
           </div>
 
-          {/* Audio Indicator */}
           {isActive && (
-            <div className="absolute top-12 right-4 z-20 animate-in fade-in zoom-in duration-300">
-              <div className="flex items-center gap-2 bg-brand-red/90 text-white px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-widest backdrop-blur-sm">
+            <div className="absolute top-10 md:top-14 right-4 md:right-6 z-20 animate-in fade-in zoom-in duration-500">
+              <div className="flex items-center gap-1.5 bg-brand-red text-white px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[8px] md:text-[9px] font-black uppercase tracking-widest shadow-2xl">
                 <Volume2 size={10} /> LIVE
               </div>
             </div>
           )}
 
-          {/* Bottom Label */}
-          <div className="absolute bottom-10 left-0 w-full text-center z-10 px-4">
-            <span className="text-[10px] font-bold text-white/90 uppercase tracking-[0.3em] drop-shadow-lg leading-tight px-4 block">
+          <div className="absolute bottom-8 md:bottom-12 left-0 w-full text-center z-10 px-4 md:px-6">
+            <span className="text-[9px] md:text-[11px] font-heading font-black text-white uppercase tracking-[0.3em] md:tracking-[0.4em] drop-shadow-2xl leading-tight">
               {clientName}
             </span>
           </div>
         </div>
 
-        {/* Home Bar (iPhone style) */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/20 rounded-full z-30"></div>
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-20 md:w-28 h-1 md:h-1.5 bg-white/10 rounded-full z-30"></div>
       </div>
     </div>
   );
@@ -206,7 +227,7 @@ const AdvertisingPhotography: React.FC = () => {
       id: 'gastro',
       title: 'Restaurantes & Gastronomía',
       description: 'Capturamos la esencia, textura y el arte culinario que despierta los sentidos.',
-      icon: <Utensils size={20} />,
+      icon: <Utensils size={20} className="md:w-6 md:h-6" />,
       images: [
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768277284/C_ejbr3s.jpg',
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768277254/L_monjso.jpg',
@@ -225,9 +246,9 @@ const AdvertisingPhotography: React.FC = () => {
     },
     {
       id: 'corporate',
-      title: 'Fotografía Corporativa & Marca personal',
+      title: 'Fotografía Corporativa',
       description: 'Potenciamos el liderazgo y la cultura organizacional a través de retratos con autoridad.',
-      icon: <Briefcase size={20} />,
+      icon: <Briefcase size={20} className="md:w-6 md:h-6" />,
       images: [
         'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop',
         'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2071&auto=format&fit=crop',
@@ -237,19 +258,34 @@ const AdvertisingPhotography: React.FC = () => {
     },
     {
       id: 'health',
-      title: 'Fotografía para Salud & Bienestar',
+      title: 'Salud & Bienestar',
       description: 'Luz, pureza y equilibrio para marcas que cuidan de la vida y el bienestar.',
-      icon: <HeartPulse size={20} />,
+      icon: <HeartPulse size={20} className="md:w-6 md:h-6" />,
       images: [
-        'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2020&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1519824141121-99767218abb2?q=80&w=2070&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=2070&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop'
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768404487/IMG_9923_gd99kp.jpg',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768404541/IMG_9922_j2fryv.jpg',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768404541/IMG_9921_hl34fh.jpg'
+      ]
+    },
+    {
+      id: 'branding',
+      title: 'Branding para Negocios',
+      description: 'Construimos identidades visuales que trascienden. Diseño estratégico para marcas líderes.',
+      icon: <Palette size={20} className="md:w-6 md:h-6" />,
+      isBranding: true,
+      images: [
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768364903/logo_propuestas-Dra._Mary_Taiz_2_1_igvlr8.png',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768364903/LOGO-BRANDBOARD-CARLOS_1_xfe0j2.png',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768365444/Metal_Custom_logo_2_1_oc9yn4.png',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768365445/Dra._Cano_logo_1_jhalxt.png',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768364902/LOGO-BRANDBOARD-TAMAL_1_ivrnyi.png',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768364901/Brand_board_ALIF-01_2_eesvgx.png'
       ]
     }
   ];
 
   const videoReelsData = [
+    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768406282/los-alamos-danzas-y-platos_LhNB2IRS_xuyrlz.mp4', client: 'Los Álamos' },
     { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768279277/okami_jdrama_bys9jw.mp4', client: 'Okami Sushi Bar' },
     { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281357/insomnio-sab-3_5hlJHFBQ_zxjio2.mp4', client: 'Insomnio hose music' },
     { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281200/caja-huancayo-aplicativo-digital_zNx524iB_fu85dg.mp4', client: 'Caja Huancayo' },
@@ -263,61 +299,65 @@ const AdvertisingPhotography: React.FC = () => {
   };
 
   return (
-    <section id="advertising-photography" className="py-24 md:py-32 bg-black overflow-hidden">
+    <section id="advertising-photography" className="py-20 md:py-48 bg-black overflow-hidden">
       <div className="max-w-[1600px] mx-auto">
         
-        <div className="flex flex-col items-center text-center mb-16 px-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-[1px] bg-brand-red"></div>
-            <span className="text-brand-red font-heading font-bold tracking-[0.5em] text-[10px] uppercase">
-              Excelencia Visual
+        <div className="flex flex-col items-center text-center mb-16 md:mb-24 px-6">
+          <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+            <div className="w-10 md:w-16 h-[1px] bg-brand-red"></div>
+            <span className="text-brand-red font-heading font-black tracking-[0.4em] md:tracking-[0.7em] text-[8px] md:text-[12px] uppercase">
+              PORTAFOLIO EXCLUSIVO
             </span>
+            <div className="w-10 md:w-16 h-[1px] bg-brand-red"></div>
           </div>
-          <h2 className="text-[2.2rem] md:text-[6rem] font-heading font-[900] uppercase tracking-tighter leading-[0.9] text-white">
-            Fotografía <br />
-            <span className="text-transparent [-webkit-text-stroke:1px_rgba(252,252,252,0.6)] italic">Publicitaria</span>
+          <h2 className="text-[2rem] md:text-[8rem] font-heading font-[900] uppercase tracking-tighter leading-[0.9] md:leading-[0.8] text-white">
+            GALERÍA <br />
+            <span className="text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.4)] italic">DACTILAR</span>
           </h2>
         </div>
 
-        <div className="space-y-12 md:space-y-20">
+        <div className="space-y-24 md:space-y-48">
           {sections.map((section) => (
             <div key={section.id} className="flex flex-col items-center">
-              <div className="flex flex-col items-center text-center space-y-4 mb-2 max-w-2xl px-6">
-                <div className="flex items-center gap-4 text-brand-red">
-                  {section.icon}
-                  <h3 className="text-2xl md:text-4xl font-heading font-bold uppercase tracking-tight text-white">
+              <div className="flex flex-col items-center text-center space-y-4 md:space-y-6 mb-4 md:mb-8 max-w-3xl px-6">
+                <div className="flex items-center gap-3 md:gap-5 text-brand-red mb-1">
+                  <div className="p-3 md:p-4 bg-brand-red/10 rounded-xl md:rounded-2xl">
+                    {section.icon}
+                  </div>
+                  <h3 className="text-xl md:text-6xl font-heading font-black uppercase tracking-tighter text-white">
                     {section.title}
                   </h3>
                 </div>
-                <p className="text-zinc-400 text-sm md:text-base font-light italic">
+                <p className="text-zinc-500 text-xs md:text-lg font-light max-w-2xl leading-relaxed italic">
                   {section.description}
                 </p>
               </div>
 
-              <FanCarousel images={section.images} category={section.title} />
+              <FanCarousel images={section.images} category={section.title} isBranding={section.isBranding} />
             </div>
           ))}
 
-          <div className="flex flex-col space-y-24 pt-24 px-6">
-            <div className="flex flex-col items-center text-center space-y-6">
-              <div className="flex items-center gap-4 text-brand-red">
-                <Instagram size={24} />
-                <h3 className="text-3xl md:text-5xl font-heading font-bold uppercase tracking-tight text-white">
-                  Producción de Reels & Video
+          <div className="flex flex-col space-y-20 md:space-y-32 pt-16 md:pt-32 px-6">
+            <div className="flex flex-col items-center text-center space-y-6 md:space-y-8">
+              <div className="flex items-center gap-4 md:gap-6 text-brand-red">
+                <Instagram size={24} className="md:w-8 md:h-8" strokeWidth={2.5} />
+                <h3 className="text-3xl md:text-[7rem] font-heading font-black uppercase tracking-tighter text-white leading-none">
+                  VIDEO <br className="md:hidden" /> REEL
                 </h3>
               </div>
-              <p className="text-zinc-400 text-sm md:text-lg max-w-2xl font-light">
-                Contenido dinámico diseñado para impactar en segundos. Estrategia visual exclusiva para redes sociales.
+              <p className="text-zinc-500 text-xs md:text-xl max-w-3xl font-light leading-relaxed">
+                Diseñamos piezas audiovisuales que dominan el algoritmo. <br className="hidden md:block" />
+                Estética cinematográfica adaptada al formato vertical.
               </p>
             </div>
 
-            <div className="flex flex-col items-center gap-24 md:gap-32 w-full max-w-[1000px] mx-auto">
+            <div className="flex flex-col items-center gap-20 md:gap-48 w-full max-w-[1200px] mx-auto">
               {videoReelsData.map((video, vIdx) => (
                 <VideoReelItem 
                   key={vIdx} 
                   src={video.src} 
                   index={vIdx}
-                  clientName={`Cliente: ${video.client}`}
+                  clientName={`© PROD. DACTILAR: ${video.client}`}
                   isActive={activeVideoIndex === vIdx}
                   onPlay={setActiveVideoIndex}
                 />
@@ -326,15 +366,18 @@ const AdvertisingPhotography: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-32 pt-12 border-t border-zinc-900 flex justify-center">
+        <div className="mt-24 md:mt-48 pt-12 md:pt-20 border-t border-zinc-900 flex justify-center px-6">
            <button 
              onClick={scrollToContact}
-             className="flex items-center gap-4 group px-12 py-5 bg-white/5 border border-white/10 rounded-full hover:bg-brand-red hover:border-brand-red transition-all duration-500 shadow-xl"
+             className="relative group w-full md:w-auto px-10 md:px-16 py-6 md:py-8 bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl overflow-hidden hover:bg-brand-red hover:border-brand-red transition-all duration-700 shadow-xl"
            >
-              <Camera size={18} className="text-brand-red group-hover:text-white group-hover:rotate-12 transition-all" />
-              <span className="text-[11px] font-heading font-bold uppercase tracking-[0.4em] text-white group-hover:text-white transition-colors">
-                quiero grabar con ustedes
-              </span>
+              <div className="relative z-10 flex items-center justify-center gap-4 md:gap-6">
+                <Camera size={18} className="md:w-6 md:h-6 text-brand-red group-hover:text-white transition-all duration-500" />
+                <span className="text-[10px] md:text-[12px] font-heading font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-white">
+                  EMPEZAR PROYECTO
+                </span>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-red to-brand-violet opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
            </button>
         </div>
       </div>
