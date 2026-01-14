@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Instagram, Facebook, Tiktok, ArrowUp } from 'lucide-react';
+import { Instagram, Facebook, ArrowUp } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -43,7 +43,18 @@ const Footer: React.FC = () => {
               className="w-10 h-10 rounded-full border border-zinc-800 flex items-center justify-center hover:bg-brand-red hover:border-brand-red hover:text-white transition-all text-brand-gray"
             >
               <span className="sr-only">TikTok</span>
-              <Tiktok size={18} />
+              <svg 
+                viewBox="0 0 24 24" 
+                width="18" 
+                height="18" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                fill="none" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+              </svg>
             </a>
           </div>
         </div>

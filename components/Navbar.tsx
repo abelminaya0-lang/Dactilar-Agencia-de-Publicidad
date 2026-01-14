@@ -13,11 +13,8 @@ const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Nosotros', href: '#about' },
-    { name: 'Portafolio', href: '#portfolio' },
-    { name: 'Servicios', href: '#services' },
-    { name: 'Clientes', href: '#clients' },
-    { name: 'Testimonios', href: '#testimonials' },
+    { name: 'Galería', href: '#advertising-photography' },
+    { name: 'Equipo', href: '#team' },
     { name: 'Contacto', href: '#contact' },
   ];
 
@@ -35,7 +32,6 @@ const Navbar: React.FC = () => {
             className="h-10 w-auto object-contain transition-transform group-hover:scale-105"
           />
         </a>
-        {/* Desktop Menu - Actualizado a font-heading para look Cocomat */}
         <div className="hidden lg:flex gap-8 text-[11px] font-heading font-bold uppercase tracking-[0.25em] text-brand-gray">
           {navLinks.map((link) => (
             <a 
@@ -83,8 +79,8 @@ const Navbar: React.FC = () => {
           ))}
           
           <div className="mt-12 flex gap-8">
-            <a href="#" className="text-brand-gray hover:text-white transition-colors text-xs font-heading font-bold tracking-widest uppercase">Instagram</a>
-            <a href="#" className="text-brand-gray hover:text-white transition-colors text-xs font-heading font-bold tracking-widest uppercase">Behance</a>
+            <a href="https://www.instagram.com/dactilaragencia" target="_blank" className="text-brand-gray hover:text-white transition-colors text-xs font-heading font-bold tracking-widest uppercase">Instagram</a>
+            <a href="https://www.facebook.com/share/1GJykLZjFJ/" target="_blank" className="text-brand-gray hover:text-white transition-colors text-xs font-heading font-bold tracking-widest uppercase">Facebook</a>
           </div>
         </div>
       )}
