@@ -15,6 +15,7 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category }) => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
       const itemWidth = window.innerWidth < 768 ? clientWidth : 600;
+      // Compensamos el padding inicial para calcular el índice correctamente
       const index = Math.round(scrollLeft / itemWidth);
       if (index !== activeIndex && index >= 0 && index < images.length) {
         setActiveIndex(index);
@@ -24,11 +25,36 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category }) => {
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const scrollAmount = window.innerWidth < 768 ? scrollRef.current.clientWidth : 600;
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
+      const { clientWidth, scrollWidth } = scrollRef.current;
+      const itemWidth = window.innerWidth < 768 ? clientWidth : 600;
+      
+      if (direction === 'right') {
+        // Si estamos en la última foto, volvemos a la primera
+        if (activeIndex === images.length - 1) {
+          scrollRef.current.scrollTo({
+            left: 0,
+            behavior: 'smooth'
+          });
+        } else {
+          scrollRef.current.scrollBy({
+            left: itemWidth,
+            behavior: 'smooth'
+          });
+        }
+      } else {
+        // Si estamos en la primera foto, vamos a la última
+        if (activeIndex === 0) {
+          scrollRef.current.scrollTo({
+            left: scrollWidth,
+            behavior: 'smooth'
+          });
+        } else {
+          scrollRef.current.scrollBy({
+            left: -itemWidth,
+            behavior: 'smooth'
+          });
+        }
+      }
     }
   };
 
@@ -185,7 +211,16 @@ const AdvertisingPhotography: React.FC = () => {
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768277284/C_ejbr3s.jpg',
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768277254/L_monjso.jpg',
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768277294/G_vyymxq.jpg',
-        'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop'
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768362611/A_b2xwqc.jpg',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768362753/F_xzmk66.jpg',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768362774/H_ussith.jpg',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768362888/B_puokkg.jpg',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768362893/O_libglo.png',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768363896/D_c806er.png',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768363879/DSC00321_dpyk1k.png',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768363845/E_wfnpy2.jpg',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768363786/N_q2hvr6.jpg',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768363746/J_l6fiye.jpg'
       ]
     },
     {
