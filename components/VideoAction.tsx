@@ -7,17 +7,13 @@ const VideoAction: React.FC = () => {
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
-      // Forzamos el volumen al máximo y desactivamos el silencio
       video.volume = 1.0;
       video.muted = false;
       
-      // Intentamos la reproducción con audio
       const playPromise = video.play();
       
       if (playPromise !== undefined) {
         playPromise.catch(error => {
-          // Si el navegador bloquea el audio automático por política de usuario,
-          // iniciamos silenciado para que al menos el video se reproduzca visualmente.
           console.log("Audio automático bloqueado. Iniciando silenciado como respaldo.");
           video.muted = true;
           video.play();
@@ -35,11 +31,23 @@ const VideoAction: React.FC = () => {
 
   return (
     <section id="video-action" className="relative z-30 -mt-32 md:-mt-64 pb-20 md:pb-32 pt-0 flex flex-col items-center justify-center bg-transparent overflow-visible px-6">
-      {/* Decorative Glows */}
       <div className="absolute top-0 left-[-5%] w-[50%] h-[50%] bg-brand-red/10 blur-[180px] rounded-full pointer-events-none"></div>
       
-      <div className="relative z-10 w-full max-w-5xl flex flex-col items-center gap-8">
-        {/* The Video Container */}
+      <div className="relative z-10 w-full max-w-5xl flex flex-col items-center gap-6 md:gap-8">
+        
+        <div className="flex flex-col items-center gap-2 md:gap-4 mb-2">
+          <span className="text-brand-red font-heading font-black tracking-[0.5em] text-[8px] md:text-[12px] uppercase animate-pulse">
+            Impacto Visual
+          </span>
+          {/* MEJORA DE VISIBILIDAD: Sombra de texto reforzada */}
+          <h2 
+            className="text-white font-heading font-black text-[1.4rem] md:text-[3.5rem] uppercase tracking-tighter leading-none text-center"
+            style={{ textShadow: '0 10px 30px rgba(0,0,0,0.8), 0 0 10px rgba(255,255,255,0.1)' }}
+          >
+            AGENCIA DE PUBLICIDAD
+          </h2>
+        </div>
+
         <div className="w-full relative rounded-2xl md:rounded-[4rem] overflow-hidden border-[1px] border-white/20 shadow-[0_60px_120px_rgba(0,0,0,0.9),0_0_100px_rgba(217,54,17,0.15)] bg-black">
           <video 
             ref={videoRef}
@@ -48,15 +56,12 @@ const VideoAction: React.FC = () => {
             playsInline
             controls
             className="w-full h-auto block"
-            // No incluimos 'loop' para que se detenga automáticamente al finalizar
           >
             Tu navegador no soporta el elemento de video.
           </video>
-          {/* Subtle inner shadow for depth */}
           <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_120px_rgba(0,0,0,0.6)]"></div>
         </div>
 
-        {/* Action Button Section */}
         <div className="w-full max-w-md flex flex-col items-center gap-6 md:gap-8 mt-2">
           <button
             onClick={scrollToPhotography}

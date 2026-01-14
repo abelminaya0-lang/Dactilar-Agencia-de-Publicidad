@@ -12,7 +12,6 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Sincroniza el índice activo detectando qué imagen está más cerca del centro del contenedor
   const handleScroll = () => {
     if (scrollRef.current) {
       const container = scrollRef.current;
@@ -41,14 +40,12 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
     }
   };
 
-  // Navegación con bucle infinito (Loop) para todas las categorías
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const container = scrollRef.current;
       const children = container.children;
       let nextIndex = direction === 'right' ? activeIndex + 1 : activeIndex - 1;
 
-      // Lógica de retorno (Looping)
       if (nextIndex >= images.length) nextIndex = 0;
       if (nextIndex < 0) nextIndex = images.length - 1;
 
@@ -65,7 +62,6 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
 
   return (
     <div className="relative group w-full">
-      {/* Controles de Navegación - Persistentes y con alto Z-Index */}
       <div className="absolute inset-0 z-[110] pointer-events-none flex items-center justify-between px-4 md:px-10">
         <button 
           onClick={() => scroll('left')}
@@ -84,7 +80,6 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
         </button>
       </div>
 
-      {/* Indicadores y Contador */}
       <div className="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 z-[110] flex flex-col items-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500">
          <div className="bg-black/80 backdrop-blur-xl px-4 md:px-6 py-1.5 rounded-full border border-white/10 shadow-2xl">
            <span className="text-[10px] md:text-[12px] font-heading font-black text-white tracking-[0.3em] uppercase">
@@ -101,7 +96,6 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
          </div>
       </div>
 
-      {/* Galería con Efecto Fan y Snap Alignment - Tamaño aumentado para Branding */}
       <div 
         ref={scrollRef}
         onScroll={handleScroll}
@@ -109,7 +103,6 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
       >
         {images.map((img, idx) => {
           const distance = Math.abs(idx - activeIndex);
-          // Reducción de rotación para Branding para mayor claridad en gran tamaño
           const rotation = (idx - activeIndex) * (isBranding ? -2 : -7);
           const scale = 1 - Math.min(distance * (isBranding ? 0.05 : 0.07), 0.3);
           const opacity = 1 - Math.min(distance * 0.15, 0.4);
@@ -138,7 +131,6 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
             </div>
           );
         })}
-        {/* Espaciador para centrado correcto del último elemento */}
         <div className="flex-none w-[10%] md:w-[30%] h-full pointer-events-none"></div>
       </div>
     </div>
@@ -169,7 +161,6 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
 
   return (
     <div className="relative w-full max-w-[320px] md:max-w-[600px] mx-auto group">
-      {/* Eliminado el marco del celular. Ahora es un contenedor cinematográfico limpio. */}
       <div className={`relative aspect-[9/16] bg-[#050505] rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_50px_120px_-20px_rgba(0,0,0,1)] transition-all duration-1000 ${isActive ? 'scale-[1.05] ring-1 ring-white/20' : 'opacity-80'}`}>
         
         <div 
@@ -202,10 +193,13 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
             </div>
           )}
 
-          <div className="absolute bottom-6 md:bottom-12 left-0 w-full text-center z-10 px-6">
-            <span className="text-[10px] md:text-[13px] font-heading font-black text-white uppercase tracking-[0.4em] drop-shadow-2xl leading-tight">
-              {clientName}
-            </span>
+          {/* MEJORA DE VISIBILIDAD: Contenedor con fondo y tipografía reforzada */}
+          <div className="absolute bottom-6 md:bottom-12 left-0 w-full flex justify-center z-10 px-6">
+            <div className="bg-black/60 backdrop-blur-md px-5 py-2 md:px-8 md:py-3 border border-white/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              <span className="text-[9px] md:text-[13px] font-heading font-black text-white uppercase tracking-[0.3em] leading-tight block">
+                {clientName}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -281,7 +275,7 @@ const AdvertisingPhotography: React.FC = () => {
   const videoReelsData = [
     { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768416904/alamos-final-de-finales_ID09V7Pp_bkgfin.mp4', client: 'Los Álamos' },
     { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768279277/okami_jdrama_bys9jw.mp4', client: 'Okami Sushi Bar' },
-    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281357/insomnio-sab-3_5hlJHFBQ_zxjio2.mp4', client: 'Insomnio hose music' },
+    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281357/insomnio-sab-3_5hlJHFBQ_zxjio2.mp4', client: 'HOUSE MUSIC' },
     { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281200/caja-huancayo-aplicativo-digital_zNx524iB_fu85dg.mp4', client: 'Caja Huancayo' },
     { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281641/labrador-valentin-1_EypTPCcu_we8epy.mp4', client: 'Labrador Restaurante' },
     { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768282343/antonios-ubi_khKmU4JL_wafe2m.mp4', client: 'Antonio Restaurant' }
@@ -336,7 +330,7 @@ const AdvertisingPhotography: React.FC = () => {
               <div className="flex items-center gap-4 md:gap-6 text-brand-red">
                 <Instagram size={24} className="md:w-8 md:h-8" strokeWidth={2.5} />
                 <h3 className="text-3xl md:text-[7rem] font-heading font-black uppercase tracking-tighter text-white leading-none">
-                  VIDEO <br className="md:hidden" /> REEL
+                  VIDEO <br className="md:hidden" /> REELS
                 </h3>
               </div>
               <p className="text-zinc-500 text-xs md:text-xl max-w-3xl font-light leading-relaxed">
