@@ -89,7 +89,7 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category }) => {
   );
 };
 
-const VideoReelItem: React.FC<{src: string, index: number, isActive: boolean, onPlay: (n: number) => void}> = ({ src, index, isActive, onPlay }) => {
+const VideoReelItem: React.FC<{src: string, index: number, clientName: string, isActive: boolean, onPlay: (n: number) => void}> = ({ src, index, clientName, isActive, onPlay }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   
   // Generar URL de portada (poster) para videos de Cloudinary
@@ -159,7 +159,9 @@ const VideoReelItem: React.FC<{src: string, index: number, isActive: boolean, on
 
           {/* Bottom Label */}
           <div className="absolute bottom-10 left-0 w-full text-center z-10 px-4">
-            <span className="text-[10px] font-bold text-white/90 uppercase tracking-[0.4em] drop-shadow-lg">DACTILAR REEL 0{index + 1}</span>
+            <span className="text-[10px] font-bold text-white/90 uppercase tracking-[0.3em] drop-shadow-lg leading-tight px-4 block">
+              {clientName}
+            </span>
           </div>
         </div>
 
@@ -188,7 +190,7 @@ const AdvertisingPhotography: React.FC = () => {
     },
     {
       id: 'corporate',
-      title: 'Fotografía Corporativa & Profesional',
+      title: 'Fotografía Corporativa & Marca personal',
       description: 'Potenciamos el liderazgo y la cultura organizacional a través de retratos con autoridad.',
       icon: <Briefcase size={20} />,
       images: [
@@ -212,12 +214,12 @@ const AdvertisingPhotography: React.FC = () => {
     }
   ];
 
-  const videoReels = [
-    'https://res.cloudinary.com/drvs81bl0/video/upload/v1768279277/okami_jdrama_bys9jw.mp4',
-    'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281357/insomnio-sab-3_5hlJHFBQ_zxjio2.mp4',
-    'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281200/caja-huancayo-aplicativo-digital_zNx524iB_fu85dg.mp4',
-    'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281641/labrador-valentin-1_EypTPCcu_we8epy.mp4',
-    'https://res.cloudinary.com/drvs81bl0/video/upload/v1768282343/antonios-ubi_khKmU4JL_wafe2m.mp4'
+  const videoReelsData = [
+    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768279277/okami_jdrama_bys9jw.mp4', client: 'Okami Sushi Bar' },
+    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281357/insomnio-sab-3_5hlJHFBQ_zxjio2.mp4', client: 'Insomnio hose music' },
+    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281200/caja-huancayo-aplicativo-digital_zNx524iB_fu85dg.mp4', client: 'Caja Huancayo' },
+    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281641/labrador-valentin-1_EypTPCcu_we8epy.mp4', client: 'Labrador Restaurante' },
+    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768282343/antonios-ubi_khKmU4JL_wafe2m.mp4', client: 'Antonio Restaurant' }
   ];
 
   const scrollToContact = () => {
@@ -275,11 +277,12 @@ const AdvertisingPhotography: React.FC = () => {
             </div>
 
             <div className="flex flex-col items-center gap-24 md:gap-32 w-full max-w-[1000px] mx-auto">
-              {videoReels.map((video, vIdx) => (
+              {videoReelsData.map((video, vIdx) => (
                 <VideoReelItem 
                   key={vIdx} 
-                  src={video} 
-                  index={vIdx} 
+                  src={video.src} 
+                  index={vIdx}
+                  clientName={`Cliente: ${video.client}`}
                   isActive={activeVideoIndex === vIdx}
                   onPlay={setActiveVideoIndex}
                 />
