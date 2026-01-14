@@ -23,7 +23,6 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
       let minDistance = Infinity;
 
       children.forEach((child, index) => {
-        // Solo evaluamos los elementos que son imágenes, no el espaciador final
         if (index < images.length) {
           const childElement = child as HTMLElement;
           const childCenter = childElement.offsetLeft + childElement.clientWidth / 2;
@@ -102,23 +101,24 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
          </div>
       </div>
 
-      {/* Galería con Efecto Fan y Snap Alignment */}
+      {/* Galería con Efecto Fan y Snap Alignment - Tamaño aumentado para Branding */}
       <div 
         ref={scrollRef}
         onScroll={handleScroll}
-        className="flex gap-0 overflow-x-auto snap-x snap-mandatory no-scrollbar perspective-[2000px] py-16 md:py-36 px-[5%] md:px-[25%]"
+        className="flex gap-0 overflow-x-auto snap-x snap-mandatory no-scrollbar perspective-[2500px] py-16 md:py-36 px-[5%] md:px-[15%]"
       >
         {images.map((img, idx) => {
           const distance = Math.abs(idx - activeIndex);
-          const rotation = (idx - activeIndex) * (isBranding ? -3 : -7);
-          const scale = 1 - Math.min(distance * (isBranding ? 0.03 : 0.07), 0.3);
+          // Reducción de rotación para Branding para mayor claridad en gran tamaño
+          const rotation = (idx - activeIndex) * (isBranding ? -2 : -7);
+          const scale = 1 - Math.min(distance * (isBranding ? 0.05 : 0.07), 0.3);
           const opacity = 1 - Math.min(distance * 0.15, 0.4);
           const zIndex = 100 - distance;
 
           return (
             <div 
               key={idx}
-              className={`flex-none w-full ${isBranding ? 'md:w-[850px]' : 'md:w-[600px]'} aspect-square md:aspect-video snap-center transition-all duration-1000 cubic-bezier(0.2, 1, 0.3, 1)`}
+              className={`flex-none w-full ${isBranding ? 'md:w-[1150px]' : 'md:w-[600px]'} ${isBranding ? 'aspect-auto' : 'aspect-square md:aspect-video'} snap-center transition-all duration-1000 cubic-bezier(0.2, 1, 0.3, 1)`}
               style={{
                 transform: `rotateY(${rotation}deg) scale(${scale})`,
                 opacity: opacity,
@@ -126,20 +126,20 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
                 transformStyle: 'preserve-3d'
               }}
             >
-              <div className={`w-full h-full rounded-[1.8rem] md:rounded-[4.5rem] overflow-hidden border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.9)] relative group/img bg-[#050505]`}>
+              <div className={`w-full h-full rounded-[1.8rem] ${isBranding ? 'md:rounded-[2.5rem]' : 'md:rounded-[4.5rem]'} overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)] relative group/img bg-[#050505]`}>
                 <img 
                   src={img} 
                   alt={`${category} ${idx}`} 
-                  className={`w-full h-full transition-transform duration-[6s] group-hover/img:scale-110 ${isBranding ? 'object-contain p-6 md:p-12' : 'object-cover'}`}
+                  className={`w-full h-full transition-transform duration-[6s] group-hover/img:scale-105 ${isBranding ? 'object-contain p-2 md:p-8' : 'object-cover'}`}
                   style={{ filter: 'brightness(1.1) contrast(1.05)' }} 
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-transparent opacity-20 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-transparent opacity-10 pointer-events-none"></div>
               </div>
             </div>
           );
         })}
         {/* Espaciador para centrado correcto del último elemento */}
-        <div className="flex-none w-[10%] md:w-[20%] h-full pointer-events-none"></div>
+        <div className="flex-none w-[10%] md:w-[30%] h-full pointer-events-none"></div>
       </div>
     </div>
   );
@@ -168,17 +168,13 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
   }, [isActive]);
 
   return (
-    <div className="relative w-full max-w-[280px] md:max-w-[320px] mx-auto group">
-      <div className={`relative aspect-[9/19.5] bg-[#080808] rounded-[2.5rem] md:rounded-[3.5rem] p-2 md:p-3 border-[6px] md:border-[8px] border-[#151515] shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] transition-all duration-1000 ${isActive ? 'scale-[1.05] md:scale-[1.08] ring-2 md:ring-4 ring-brand-red/20' : 'hover:scale-[1.02]'}`}>
+    <div className="relative w-full max-w-[320px] md:max-w-[600px] mx-auto group">
+      {/* Eliminado el marco del celular. Ahora es un contenedor cinematográfico limpio. */}
+      <div className={`relative aspect-[9/16] bg-[#050505] rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_50px_120px_-20px_rgba(0,0,0,1)] transition-all duration-1000 ${isActive ? 'scale-[1.05] ring-1 ring-white/20' : 'opacity-80'}`}>
         
-        <div className="absolute top-5 md:top-7 left-1/2 -translate-x-1/2 w-16 md:w-24 h-4 md:h-6 bg-[#080808] rounded-full z-30 flex items-center justify-center gap-2 md:gap-3">
-           <div className="w-8 md:w-10 h-1 md:h-1.5 bg-[#151515] rounded-full"></div>
-           <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-[#151515] rounded-full"></div>
-        </div>
-
         <div 
           onClick={() => onPlay(isActive ? -1 : index)}
-          className="relative w-full h-full rounded-[2rem] md:rounded-[2.8rem] overflow-hidden cursor-pointer"
+          className="relative w-full h-full cursor-pointer"
         >
           <video 
             ref={videoRef} 
@@ -190,30 +186,28 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
             className="w-full h-full object-cover bg-zinc-950" 
           />
           
-          <div className={`absolute inset-0 bg-black/40 transition-opacity duration-700 ${isActive ? 'opacity-0' : 'opacity-60'}`}></div>
+          <div className={`absolute inset-0 bg-black/40 transition-opacity duration-700 ${isActive ? 'opacity-0' : 'opacity-50'}`}></div>
           
           <div className="absolute inset-0 flex items-center justify-center z-20">
-            <div className={`w-14 h-14 md:w-20 md:h-20 flex items-center justify-center rounded-full backdrop-blur-xl border border-white/20 transition-all duration-700 ${isActive ? 'bg-brand-red opacity-0 group-hover:opacity-100 scale-75' : 'bg-white/10 scale-100'}`}>
-              {isActive ? <Pause size={24} fill="currentColor" /> : <Play size={24} fill="currentColor" className="ml-1" />}
+            <div className={`w-16 h-16 md:w-24 md:h-24 flex items-center justify-center rounded-full backdrop-blur-xl border border-white/20 transition-all duration-700 ${isActive ? 'bg-brand-red opacity-0 group-hover:opacity-100 scale-75' : 'bg-white/10 scale-100'}`}>
+              {isActive ? <Pause size={30} fill="currentColor" /> : <Play size={30} fill="currentColor" className="ml-1" />}
             </div>
           </div>
 
           {isActive && (
-            <div className="absolute top-10 md:top-14 right-4 md:right-6 z-20 animate-in fade-in zoom-in duration-500">
-              <div className="flex items-center gap-1.5 bg-brand-red text-white px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[8px] md:text-[9px] font-black uppercase tracking-widest shadow-2xl">
-                <Volume2 size={10} /> LIVE
+            <div className="absolute top-6 md:top-10 right-6 md:right-10 z-20 animate-in fade-in zoom-in duration-500">
+              <div className="flex items-center gap-2 bg-brand-red text-white px-4 md:px-6 py-1.5 md:py-2 rounded-full text-[10px] md:text-[12px] font-black uppercase tracking-widest shadow-2xl">
+                <Volume2 size={12} /> REEL ACTIVO
               </div>
             </div>
           )}
 
-          <div className="absolute bottom-8 md:bottom-12 left-0 w-full text-center z-10 px-4 md:px-6">
-            <span className="text-[9px] md:text-[11px] font-heading font-black text-white uppercase tracking-[0.3em] md:tracking-[0.4em] drop-shadow-2xl leading-tight">
+          <div className="absolute bottom-6 md:bottom-12 left-0 w-full text-center z-10 px-6">
+            <span className="text-[10px] md:text-[13px] font-heading font-black text-white uppercase tracking-[0.4em] drop-shadow-2xl leading-tight">
               {clientName}
             </span>
           </div>
         </div>
-
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-20 md:w-28 h-1 md:h-1.5 bg-white/10 rounded-full z-30"></div>
       </div>
     </div>
   );
