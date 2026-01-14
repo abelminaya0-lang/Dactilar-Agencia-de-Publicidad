@@ -6,12 +6,13 @@ const VideoAction: React.FC = () => {
 
   useEffect(() => {
     if (videoRef.current) {
-      // Intentamos reproducir el video explícitamente al cargar
+      // Forzamos el play silencioso para asegurar el autoplay en todos los navegadores
+      videoRef.current.muted = true;
       const playPromise = videoRef.current.play();
       
       if (playPromise !== undefined) {
         playPromise.catch(error => {
-          console.log("El autoplay con audio fue bloqueado por el navegador. El video esperará interacción o se reproducirá silenciado si fuera necesario.");
+          console.log("El autoplay fue bloqueado. Requiere interacción del usuario para sonido.");
         });
       }
     }
@@ -38,12 +39,13 @@ const VideoAction: React.FC = () => {
           </h2>
         </div>
 
-        {/* The Video Container - Loop removed so it stops at the end */}
+        {/* The Video Container - Muted for Autoplay and No Loop to stop at end */}
         <div className="w-full relative rounded-2xl md:rounded-[4rem] overflow-hidden border-[1px] border-white/20 shadow-[0_60px_120px_rgba(0,0,0,0.9),0_0_100px_rgba(217,54,17,0.15)] bg-black">
           <video 
             ref={videoRef}
             src="https://res.cloudinary.com/drvs81bl0/video/upload/v1768021333/video_anotny_Hecho_con_Clipchamp_pnjvme.mp4"
             autoPlay 
+            muted
             playsInline
             controls
             className="w-full h-auto block"

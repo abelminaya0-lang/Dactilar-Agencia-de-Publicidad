@@ -279,7 +279,7 @@ const AdvertisingPhotography: React.FC = () => {
   ];
 
   const videoReelsData = [
-    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768406282/los-alamos-danzas-y-platos_LhNB2IRS_xuyrlz.mp4', client: 'Los Álamos' },
+    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768416904/alamos-final-de-finales_ID09V7Pp_bkgfin.mp4', client: 'Los Álamos' },
     { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768279277/okami_jdrama_bys9jw.mp4', client: 'Okami Sushi Bar' },
     { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281357/insomnio-sab-3_5hlJHFBQ_zxjio2.mp4', client: 'Insomnio hose music' },
     { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281200/caja-huancayo-aplicativo-digital_zNx524iB_fu85dg.mp4', client: 'Caja Huancayo' },

@@ -21,7 +21,7 @@ const CIOSection: React.FC = () => {
           ></div>
           <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-[3px] border-black shadow-[0_0_40px_rgba(84,8,160,0.2)]">
             <img 
-              src="https://res.cloudinary.com/drvs81bl0/image/upload/v1767938974/Gemini_Generated_Image_9fgssj9fgssj9fgs_1_trpteg.png" 
+              src="https://res.cloudinary.com/drvs81bl0/image/upload/v1768415486/perfil_antony_1_unovza.png" 
               alt="Antony Palacios - Fundador" 
               className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
             />
@@ -45,7 +45,7 @@ const CIOSection: React.FC = () => {
           </h2>
           <div className="w-12 h-[1px] mx-auto my-6 opacity-40" style={{ backgroundColor: accentColor }}></div>
           <p className="text-zinc-400 text-sm md:text-base max-w-lg mx-auto leading-relaxed font-light font-sans italic">
-            "Nuestra misión es transformar la infraestructura digital en una ventaja competitiva. En Dactilar, la tecnología es el motor que escala la creatividad."
+            "Soy Antony Palacios, licenciado en Administración y Marketing, especialista en branding y marketing digital con más de 8 años impulsando marcas. Como fundador de Dactilar, convierto ideas en identidad y marcas en negocios sólidos y competitivos."
           </p>
         </div>
 
