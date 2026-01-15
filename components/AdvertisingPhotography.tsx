@@ -193,7 +193,6 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
             </div>
           )}
 
-          {/* MEJORA DE VISIBILIDAD: Contenedor con fondo y tipografía reforzada */}
           <div className="absolute bottom-6 md:bottom-12 left-0 w-full flex justify-center z-10 px-6">
             <div className="bg-black/60 backdrop-blur-md px-5 py-2 md:px-8 md:py-3 border border-white/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
               <span className="text-[9px] md:text-[13px] font-heading font-black text-white uppercase tracking-[0.3em] leading-tight block">
@@ -234,14 +233,13 @@ const AdvertisingPhotography: React.FC = () => {
     },
     {
       id: 'corporate',
-      title: 'Fotografía Corporativa',
+      title: 'Fotografía Corporativa y marca personal',
       description: 'Potenciamos el liderazgo y la cultura organizacional a través de retratos con autoridad.',
       icon: <Briefcase size={20} className="md:w-6 md:h-6" />,
       images: [
-        'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2071&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop'
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768450619/f7b4dbe4-2d0d-4f38-b6de-414774259dd4_jwr9oz.jpg',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768450619/0a7f7504-3f94-482e-853a-300078e86c59_zw0xah.jpg',
+        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768450619/67300edd-3a61-4665-a786-f32327a8fd58_yy03ds.jpg'
       ]
     },
     {
@@ -312,7 +310,7 @@ const AdvertisingPhotography: React.FC = () => {
                   <div className="p-3 md:p-4 bg-brand-red/10 rounded-xl md:rounded-2xl">
                     {section.icon}
                   </div>
-                  <h3 className="text-xl md:text-6xl font-heading font-black uppercase tracking-tighter text-white">
+                  <h3 className="text-xl md:text-6xl font-heading font-black uppercase tracking-tighter text-white text-center">
                     {section.title}
                   </h3>
                 </div>

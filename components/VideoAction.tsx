@@ -6,20 +6,45 @@ const VideoAction: React.FC = () => {
 
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
-      video.volume = 1.0;
-      video.muted = false;
-      
-      const playPromise = video.play();
-      
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log("Audio automático bloqueado. Iniciando silenciado como respaldo.");
-          video.muted = true;
-          video.play();
-        });
+    if (!video) return;
+
+    // Intentar reproducir con audio inicialmente
+    const attemptPlay = async () => {
+      try {
+        video.volume = 1.0;
+        video.muted = false;
+        await video.play();
+        console.log("Reproducción con audio exitosa");
+      } catch (error) {
+        console.log("Audio bloqueado por el navegador. Iniciando silenciado.");
+        // Si falla, reproducimos silenciado para que el video no se quede estático
+        video.muted = true;
+        video.play();
       }
-    }
+    };
+
+    attemptPlay();
+
+    // Listener global para activar el audio al primer clic del usuario
+    // Esto es necesario debido a las políticas de reproducción automática de los navegadores modernos
+    const handleFirstInteraction = () => {
+      if (video && video.muted) {
+        video.muted = false;
+        video.volume = 1.0;
+        console.log("Audio activado tras interacción");
+      }
+      // Removemos el listener después de la primera interacción
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
+    };
+
+    document.addEventListener('click', handleFirstInteraction);
+    document.addEventListener('touchstart', handleFirstInteraction);
+
+    return () => {
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
+    };
   }, []);
 
   const scrollToPhotography = () => {
@@ -39,7 +64,6 @@ const VideoAction: React.FC = () => {
           <span className="text-brand-red font-heading font-black tracking-[0.5em] text-[8px] md:text-[12px] uppercase animate-pulse">
             Impacto Visual
           </span>
-          {/* MEJORA DE VISIBILIDAD: Sombra de texto reforzada */}
           <h2 
             className="text-white font-heading font-black text-[1.4rem] md:text-[3.5rem] uppercase tracking-tighter leading-none text-center"
             style={{ textShadow: '0 10px 30px rgba(0,0,0,0.8), 0 0 10px rgba(255,255,255,0.1)' }}
