@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { User } from 'lucide-react';
 
@@ -77,4 +76,4 @@ const BookingSection: React.FC = () => {
   );
 };
 
-export default Booking
+export default BookingSection;
