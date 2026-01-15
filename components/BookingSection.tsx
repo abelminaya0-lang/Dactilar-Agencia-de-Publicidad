@@ -6,11 +6,13 @@ const BookingSection: React.FC = () => {
 
   const handleWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputValue.trim()) return;
-
+    
+    // Si el usuario no pone nombre, usamos un valor predeterminado
+    const nameToUse = inputValue.trim() || "un cliente interesado";
+    
     // Número actualizado: +51 901 189 796
     const phoneNumber = "51901189796";
-    const message = encodeURIComponent(`Hola Dactilar, me gustaría agendar una llamada. Mi nombre/empresa es: ${inputValue}`);
+    const message = encodeURIComponent(`Hola Dactilar, me gustaría agendar una llamada. Mi nombre/empresa es: ${nameToUse}`);
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
 
@@ -34,7 +36,7 @@ const BookingSection: React.FC = () => {
           {/* Label */}
           <div className="w-full text-left">
             <label className="text-black font-sans text-xs md:text-sm font-extrabold mb-2 block tracking-tight uppercase">
-              Tu Nombre o empresa <span className="text-zinc-900/30">*</span>
+              Tu Nombre o empresa <span className="text-zinc-900/30">(opcional)</span>
             </label>
           </div>
 
@@ -45,10 +47,9 @@ const BookingSection: React.FC = () => {
             </div>
             <input
               type="text"
-              required
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Escribe aquí..."
+              placeholder="Escribe aquí tu nombre..."
               className="w-full bg-white text-black h-12 md:h-16 pl-12 md:pl-14 pr-8 rounded-[0.8rem] md:rounded-[1rem] text-sm md:text-lg outline-none transition-all placeholder:text-zinc-300 font-sans border-none shadow-[inset_0_4px_10px_rgba(0,0,0,0.05)] focus:ring-4 focus:ring-black/5"
             />
           </div>
