@@ -9,7 +9,8 @@ const BookingSection: React.FC = () => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
-    const phoneNumber = "51902838501";
+    // Número actualizado: +51 901 189 796
+    const phoneNumber = "51901189796";
     const message = encodeURIComponent(`Hola Dactilar, me gustaría agendar una llamada. Mi nombre/empresa es: ${inputValue}`);
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
@@ -76,4 +77,4 @@ const BookingSection: React.FC = () => {
   );
 };
 
-export default BookingSection;
+export default Booking
