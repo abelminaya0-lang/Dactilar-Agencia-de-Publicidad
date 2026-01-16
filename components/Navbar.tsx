@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Search, Menu, X } from 'lucide-react';
 
@@ -13,10 +12,22 @@ const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Galería', href: '#advertising-photography' },
+    { name: 'Portafolio', href: '#advertising-photography' },
     { name: 'Equipo', href: '#team' },
+    { name: 'Servicio', href: '#cio' },
     { name: 'Contacto', href: '#contact' },
   ];
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
+    }
+  };
 
   return (
     <nav 
@@ -25,7 +36,7 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="flex items-center gap-12">
-        <a href="#" className="flex items-center gap-2 group">
+        <a href="#hero" onClick={(e) => handleLinkClick(e, '#hero')} className="flex items-center gap-2 group">
           <img 
             src="https://res.cloudinary.com/drvs81bl0/image/upload/v1767934726/LOGO_2026-02_yb66me.png" 
             alt="Dactilar Logo" 
@@ -37,6 +48,7 @@ const Navbar: React.FC = () => {
             <a 
               key={link.name} 
               href={link.href} 
+              onClick={(e) => handleLinkClick(e, link.href)}
               className="hover:text-brand-red transition-all duration-300 relative group/link"
             >
               {link.name}
@@ -70,7 +82,7 @@ const Navbar: React.FC = () => {
             <a 
               key={link.name}
               href={link.href} 
-              onClick={() => setIsMenuOpen(false)} 
+              onClick={(e) => handleLinkClick(e, link.href)} 
               className="text-3xl md:text-5xl font-heading font-bold uppercase tracking-tighter hover:text-brand-red text-brand-light transition-all duration-300 transform hover:scale-110"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
