@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Utensils, Briefcase, HeartPulse, Palette, Camera, Play, Pause, Instagram, Volume2, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -111,7 +110,7 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
           return (
             <div 
               key={idx}
-              className={`flex-none w-full ${isBranding ? 'md:w-[1150px]' : 'md:w-[600px]'} ${isBranding ? 'aspect-auto' : 'aspect-square md:aspect-video'} snap-center transition-all duration-1000 cubic-bezier(0.2, 1, 0.3, 1)`}
+              className={`flex-none w-full ${isBranding ? 'md:w-[1150px]' : 'md:w-[480px]'} ${isBranding ? 'aspect-auto' : 'aspect-[3/4]'} snap-center transition-all duration-1000 cubic-bezier(0.2, 1, 0.3, 1)`}
               style={{
                 transform: `rotateY(${rotation}deg) scale(${scale})`,
                 opacity: opacity,

@@ -1,6 +1,4 @@
-
 import React from 'react';
-import { GlassWater, Trophy, Flame } from 'lucide-react';
 
 const TeamSection: React.FC = () => {
   // Colores de la marca
@@ -12,16 +10,6 @@ const TeamSection: React.FC = () => {
       {/* Header Section */}
       <div className="relative mb-10 md:mb-24 text-center px-4 max-w-6xl mx-auto z-10">
         
-        {/* Brand Badge - Red */}
-        <div 
-          className="absolute top-[-15px] left-1/2 -translate-x-1/2 md:left-[58%] z-20 inline-flex items-center gap-2 px-3 py-1.5 md:px-6 md:py-3 rounded-[4px] md:rounded-[8px] transform -rotate-[6deg] shadow-2xl animate-in fade-in zoom-in duration-700"
-          style={{ backgroundColor: brandRed }}
-        >
-          <GlassWater size={14} className="text-white md:w-6 md:h-6" fill="white" />
-          <Trophy size={14} className="text-white md:w-6 md:h-6" fill="white" />
-          <Flame size={14} className="text-white md:w-6 md:h-6" fill="white" />
-        </div>
-
         {/* Adjusted Typography for Mobile */}
         <h2 className="text-white font-heading font-[900] text-[2.2rem] md:text-[9.5rem] leading-[0.8] uppercase tracking-tighter mb-1 md:mb-2">
           NUESTRO EQUIPO
