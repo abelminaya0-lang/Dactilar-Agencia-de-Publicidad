@@ -1,17 +1,17 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import VideoAction from './components/VideoAction';
 import CIOSection from './components/CIOSection';
 import AdvertisingPhotography from './components/AdvertisingPhotography';
+import ServicesTextSection from './components/ServicesTextSection';
 import TeamSection from './components/TeamSection';
 import BookingSection from './components/BookingSection';
 import Footer from './components/Footer';
 
 const App: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(1);
-  const sectionsCount = 6;
+  const sectionsCount = 7;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,6 +32,7 @@ const App: React.FC = () => {
     'video-action', 
     'cio', 
     'advertising-photography', 
+    'services-text',
     'team', 
     'contact'
   ];
@@ -40,7 +41,7 @@ const App: React.FC = () => {
     <div className="relative bg-black text-brand-light min-h-screen selection:bg-brand-red selection:text-white">
       <Navbar />
       
-      {/* Side Pagination - Updated for 6 sections */}
+      {/* Side Pagination - Updated for 7 sections */}
       <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-4 items-center">
         {Array.from({ length: sectionsCount }).map((_, idx) => {
           const num = idx + 1;
@@ -71,6 +72,7 @@ const App: React.FC = () => {
         <VideoAction />
         <CIOSection />
         <AdvertisingPhotography />
+        <ServicesTextSection />
         <TeamSection />
         <BookingSection />
       </main>
