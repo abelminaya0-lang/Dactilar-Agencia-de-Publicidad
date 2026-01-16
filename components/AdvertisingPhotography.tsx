@@ -118,7 +118,7 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
                 transformStyle: 'preserve-3d'
               }}
             >
-              <div className={`w-full h-full rounded-[1.8rem] ${isBranding ? 'md:rounded-[2.5rem]' : 'md:rounded-[4.5rem]'} overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)] relative group/img bg-[#050505]`}>
+              <div className={`w-full h-full rounded-[1.8rem] ${isBranding ? 'md:rounded-[2.5rem]' : 'md:rounded-[4rem]'} overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)] relative group/img bg-[#050505]`}>
                 <img 
                   src={img} 
                   alt={`${category} ${idx}`} 

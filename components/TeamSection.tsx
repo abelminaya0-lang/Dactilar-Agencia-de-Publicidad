@@ -39,7 +39,7 @@ const TeamSection: React.FC = () => {
           <div className="absolute bottom-4 left-4 md:bottom-10 md:left-10 z-30 flex items-center gap-3">
             <div className="w-8 md:w-12 h-[1px] bg-brand-red"></div>
             <p className="text-white font-heading font-bold text-[10px] md:text-xs uppercase tracking-[0.4em] drop-shadow-md">
-              Talento sin fronteras
+              DACTILAR TEAM
             </p>
           </div>
         </div>
