@@ -7,20 +7,21 @@ const ServicesTextSection: React.FC = () => {
     "Performance",
     "Fotografía publicitaria",
     "Estrategias digitales",
+    "Diseño Web",
     "Consultorías"
   ];
 
   return (
-    <section id="services-text" className="py-24 md:py-40 bg-black overflow-hidden border-y border-zinc-900/30">
-      <div className="max-w-[1600px] mx-auto px-6">
-        <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-4 md:gap-x-12 md:gap-y-8">
+    <section id="services-text" className="py-24 md:py-48 bg-black overflow-hidden border-y border-zinc-900/30">
+      <div className="max-w-[1700px] mx-auto px-6">
+        <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 md:gap-x-16 md:gap-y-14">
           {services.map((service, index) => (
             <React.Fragment key={index}>
-              <span className="text-[1.4rem] md:text-[4rem] lg:text-[5.5rem] font-heading font-black uppercase tracking-tighter text-white/90 hover:text-brand-red transition-all duration-700 cursor-default leading-none">
+              <span className="text-[2rem] md:text-[8rem] font-heading font-[900] uppercase tracking-tighter text-white leading-[0.8] hover:text-brand-red transition-all duration-700 cursor-default">
                 {service}
               </span>
               {index < services.length - 1 && (
-                <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-brand-red shadow-[0_0_15px_rgba(217,54,17,0.5)]"></div>
+                <div className="w-2 h-2 md:w-5 md:h-5 rounded-full bg-brand-red shadow-[0_0_20px_rgba(217,54,17,0.6)] animate-pulse"></div>
               )}
             </React.Fragment>
           ))}

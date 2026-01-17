@@ -290,14 +290,14 @@ const AdvertisingPhotography: React.FC = () => {
         <div className="flex flex-col items-center text-center mb-16 md:mb-24 px-6">
           <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
             <div className="w-10 md:w-16 h-[1px] bg-brand-red"></div>
-            <span className="text-brand-red font-heading font-black tracking-[0.4em] md:tracking-[0.7em] text-[8px] md:text-[12px] uppercase">
+            <span className="text-brand-red font-heading font-[900] tracking-tighter text-[10px] md:text-[14px] uppercase">
               PORTAFOLIO EXCLUSIVO
             </span>
             <div className="w-10 md:w-16 h-[1px] bg-brand-red"></div>
           </div>
           <h2 className="text-[2rem] md:text-[8rem] font-heading font-[900] uppercase tracking-tighter leading-[0.9] md:leading-[0.8] text-white">
             GALERÍA <br />
-            <span className="text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.4)] italic">DACTILAR</span>
+            DACTILAR
           </h2>
         </div>
 
