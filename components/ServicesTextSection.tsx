@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
 const services = [
-  { id: "01", title: "Creación de contenido" },
-  { id: "02", title: "Branding" },
-  { id: "03", title: "Performance" },
-  { id: "04", title: "Fotografía publicitaria" },
-  { id: "05", title: "Estrategias digitales" },
-  { id: "06", title: "Diseño Web" },
-  { id: "07", title: "Consultorías" }
+  { id: "01", title: "Creación de contenido", icon: "🎬" },
+  { id: "02", title: "Branding", icon: "🖌️" },
+  { id: "03", title: "Performance", icon: "🚀" },
+  { id: "04", title: "Fotografía publicitaria", icon: "📸" },
+  { id: "05", title: "Estrategias digitales", icon: "🎯" },
+  { id: "06", title: "Diseño Web", icon: "💻" },
+  { id: "07", title: "Consultorías", icon: "💡" }
 ];
 
 const ServicesTextSection: React.FC = () => {
@@ -40,21 +40,28 @@ const ServicesTextSection: React.FC = () => {
               <div className="flex items-center justify-between py-6 md:py-12 transition-all duration-500">
                 
                 <div className="flex items-center gap-6 md:gap-16">
-                  {/* Numeración Minimalista */}
-                  <span className={`font-heading font-bold text-[9px] md:text-xs tracking-[0.4em] transition-colors duration-500 ${
-                    hoveredIndex === index ? 'text-brand-red' : 'text-zinc-800'
+                  {/* Numeración en Blanco para Visibilidad */}
+                  <span className={`font-heading font-bold text-[10px] md:text-sm tracking-[0.4em] transition-all duration-500 ${
+                    hoveredIndex === index ? 'text-brand-red scale-110' : 'text-white/40'
                   }`}>
                     {service.id}
                   </span>
                   
-                  {/* Título con efecto Outline a Sólido */}
-                  <h3 className={`text-[1.3rem] md:text-[4rem] font-heading font-black uppercase tracking-tighter leading-none transition-all duration-700 ${
-                    hoveredIndex === index 
-                      ? 'text-brand-red translate-x-4 md:translate-x-8' 
-                      : 'text-white/90 md:text-transparent md:[-webkit-text-stroke:1px_rgba(255,255,255,0.15)]'
+                  {/* Título con Icono y efecto Outline a Sólido */}
+                  <div className={`flex items-center gap-4 md:gap-8 transition-all duration-700 ${
+                    hoveredIndex === index ? 'translate-x-4 md:translate-x-8' : ''
                   }`}>
-                    {service.title}
-                  </h3>
+                    <span className={`text-xl md:text-4xl transition-transform duration-500 ${hoveredIndex === index ? 'scale-125 rotate-12' : 'scale-100 opacity-40'}`}>
+                      {service.icon}
+                    </span>
+                    <h3 className={`text-[1.3rem] md:text-[4rem] font-heading font-black uppercase tracking-tighter leading-none transition-all duration-700 ${
+                      hoveredIndex === index 
+                        ? 'text-brand-red' 
+                        : 'text-white/90 md:text-transparent md:[-webkit-text-stroke:1px_rgba(255,255,255,0.15)]'
+                    }`}>
+                      {service.title}
+                    </h3>
+                  </div>
                 </div>
 
                 {/* Icono de flecha minimalista */}
