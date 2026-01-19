@@ -1,55 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+const services = [
+  { id: "01", title: "Creación de contenido" },
+  { id: "02", title: "Branding" },
+  { id: "03", title: "Performance" },
+  { id: "04", title: "Fotografía publicitaria" },
+  { id: "05", title: "Estrategias digitales" },
+  { id: "06", title: "Diseño Web" },
+  { id: "07", title: "Consultorías" }
+];
 
 const ServicesTextSection: React.FC = () => {
-  const services = [
-    "Creación de contenido",
-    "Branding",
-    "Performance",
-    "Fotografía publicitaria",
-    "Estrategias digitales",
-    "Diseño Web",
-    "Consultorías"
-  ];
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section id="services-text" className="py-24 md:py-44 bg-black overflow-hidden border-y border-zinc-900/30">
-      <div className="max-w-[1700px] mx-auto px-6">
+    <section 
+      id="services-text" 
+      className="relative py-24 md:py-40 bg-black overflow-hidden border-y border-zinc-900/30 cursor-default"
+    >
+      <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         
-        {/* Título de Sección */}
-        <div className="flex flex-col items-center mb-16 md:mb-20">
-          <div className="flex items-center gap-3 md:gap-4 mb-4">
-            <div className="w-8 md:w-12 h-[1px] bg-brand-red opacity-50"></div>
-            <span className="text-brand-red font-heading font-black tracking-[0.5em] text-[10px] md:text-[12px] uppercase">
-              SERVICIOS
-            </span>
-            <div className="w-8 md:w-12 h-[1px] bg-brand-red opacity-50"></div>
-          </div>
+        {/* Título de la Sección - Estilo Etiqueta de Lujo */}
+        <div className="flex flex-col items-center mb-20 md:mb-32">
+          <h2 className="text-brand-red font-heading font-black text-[10px] md:text-[12px] uppercase tracking-[0.8em] text-center leading-none opacity-90">
+            SERVICIOS
+          </h2>
         </div>
 
-        {/* Lista de Servicios en Columna Centrada con Divisores Inclinados */}
-        <div className="flex flex-col items-center justify-center">
+        {/* Lista de Servicios Tipográfica */}
+        <div className="flex flex-col w-full max-w-5xl mx-auto">
           {services.map((service, index) => (
-            <React.Fragment key={index}>
-              <div className="group flex flex-col items-center py-2 md:py-4">
-                <span className="text-[1.8rem] md:text-[5.2rem] font-heading font-[900] uppercase tracking-tighter text-white leading-[0.8] hover:text-brand-red transition-all duration-700 cursor-default text-center">
-                  {service}
-                </span>
+            <div 
+              key={index} 
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              className="w-full flex flex-col group relative"
+            >
+              {/* Contenedor del Ítem */}
+              <div className="flex items-center justify-between py-6 md:py-12 transition-all duration-500">
                 
-                {/* Línea decorativa sutil en hover */}
-                <div className="w-0 h-[1px] bg-brand-red mt-2 md:mt-4 transition-all duration-700 group-hover:w-1/2 opacity-0 group-hover:opacity-100"></div>
+                <div className="flex items-center gap-6 md:gap-16">
+                  {/* Numeración Minimalista */}
+                  <span className={`font-heading font-bold text-[9px] md:text-xs tracking-[0.4em] transition-colors duration-500 ${
+                    hoveredIndex === index ? 'text-brand-red' : 'text-zinc-800'
+                  }`}>
+                    {service.id}
+                  </span>
+                  
+                  {/* Título con efecto Outline a Sólido */}
+                  <h3 className={`text-[1.3rem] md:text-[4rem] font-heading font-black uppercase tracking-tighter leading-none transition-all duration-700 ${
+                    hoveredIndex === index 
+                      ? 'text-brand-red translate-x-4 md:translate-x-8' 
+                      : 'text-white/90 md:text-transparent md:[-webkit-text-stroke:1px_rgba(255,255,255,0.15)]'
+                  }`}>
+                    {service.title}
+                  </h3>
+                </div>
+
+                {/* Icono de flecha minimalista */}
+                <div className={`hidden md:flex w-10 h-10 items-center justify-center transition-all duration-500 opacity-0 transform translate-x-[-20px] ${
+                  hoveredIndex === index ? 'opacity-100 translate-x-0' : ''
+                }`}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D93611" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
               </div>
 
-              {/* Divisor Inclinado (Slash) - No aparece después del último elemento */}
-              {index < services.length - 1 && (
-                <div className="py-4 md:py-8 flex justify-center">
-                  <span className="text-brand-red/30 text-2xl md:text-5xl font-heading font-light transform -rotate-[25deg] select-none">
-                    /
-                  </span>
-                </div>
-              )}
-            </React.Fragment>
+              {/* Raya Divisoria */}
+              <div className={`w-full h-[1px] transition-all duration-700 origin-left ${
+                hoveredIndex === index ? 'bg-brand-red scale-x-100 opacity-100' : 'bg-zinc-900 opacity-50'
+              }`}></div>
+            </div>
           ))}
         </div>
+      </div>
+
+      {/* Decoración de fondo sutil */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(217,54,17,0.01)_0%,transparent_70%)]"></div>
       </div>
     </section>
   );
