@@ -16,19 +16,19 @@ const ServicesTextSection: React.FC = () => {
   return (
     <section 
       id="services-text" 
-      className="relative py-24 md:py-40 bg-black overflow-hidden border-y border-zinc-900/30 cursor-default"
+      className="relative py-24 md:py-40 lg:py-56 bg-black overflow-hidden border-y border-zinc-900/30 cursor-default"
     >
-      <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1400px] lg:max-w-[1600px] mx-auto px-6 relative z-10">
         
         {/* Título de la Sección - Estilo Etiqueta de Lujo */}
-        <div className="flex flex-col items-center mb-20 md:mb-32">
-          <h2 className="text-brand-red font-heading font-black text-[10px] md:text-[12px] uppercase tracking-[0.8em] text-center leading-none opacity-90">
+        <div className="flex flex-col items-center mb-20 md:mb-32 lg:mb-48">
+          <h2 className="text-brand-red font-heading font-black text-[10px] md:text-[12px] lg:text-[15px] uppercase tracking-[0.8em] text-center leading-none opacity-90">
             SERVICIOS
           </h2>
         </div>
 
         {/* Lista de Servicios Tipográfica */}
-        <div className="flex flex-col w-full max-w-5xl mx-auto">
+        <div className="flex flex-col w-full max-w-5xl lg:max-w-6xl mx-auto">
           {services.map((service, index) => (
             <div 
               key={index} 
@@ -37,24 +37,24 @@ const ServicesTextSection: React.FC = () => {
               className="w-full flex flex-col group relative"
             >
               {/* Contenedor del Ítem */}
-              <div className="flex items-center justify-between py-6 md:py-12 transition-all duration-500">
+              <div className="flex items-center justify-between py-6 md:py-12 lg:py-16 transition-all duration-500">
                 
-                <div className="flex items-center gap-6 md:gap-16">
+                <div className="flex items-center gap-6 md:gap-16 lg:gap-24">
                   {/* Numeración en Blanco para Visibilidad */}
-                  <span className={`font-heading font-bold text-[10px] md:text-sm tracking-[0.4em] transition-all duration-500 ${
+                  <span className={`font-heading font-bold text-[10px] md:text-sm lg:text-lg tracking-[0.4em] transition-all duration-500 ${
                     hoveredIndex === index ? 'text-brand-red scale-110' : 'text-white/40'
                   }`}>
                     {service.id}
                   </span>
                   
                   {/* Título con Icono y efecto Outline a Sólido */}
-                  <div className={`flex items-center gap-4 md:gap-8 transition-all duration-700 ${
-                    hoveredIndex === index ? 'translate-x-4 md:translate-x-8' : ''
+                  <div className={`flex items-center gap-4 md:gap-8 lg:gap-12 transition-all duration-700 ${
+                    hoveredIndex === index ? 'translate-x-4 md:translate-x-8 lg:translate-x-12' : ''
                   }`}>
-                    <span className={`text-xl md:text-4xl transition-transform duration-500 ${hoveredIndex === index ? 'scale-125 rotate-12' : 'scale-100 opacity-40'}`}>
+                    <span className={`text-xl md:text-4xl lg:text-6xl transition-transform duration-500 ${hoveredIndex === index ? 'scale-125 rotate-12' : 'scale-100 opacity-40'}`}>
                       {service.icon}
                     </span>
-                    <h3 className={`text-[1.3rem] md:text-[4rem] font-heading font-black uppercase tracking-tighter leading-none transition-all duration-700 ${
+                    <h3 className={`text-[1.3rem] md:text-[4rem] lg:text-[5.5rem] xl:text-[7rem] font-heading font-black uppercase tracking-tighter leading-none transition-all duration-700 ${
                       hoveredIndex === index 
                         ? 'text-brand-red' 
                         : 'text-white/90 md:text-transparent md:[-webkit-text-stroke:1px_rgba(255,255,255,0.15)]'
@@ -65,10 +65,10 @@ const ServicesTextSection: React.FC = () => {
                 </div>
 
                 {/* Icono de flecha minimalista */}
-                <div className={`hidden md:flex w-10 h-10 items-center justify-center transition-all duration-500 opacity-0 transform translate-x-[-20px] ${
+                <div className={`hidden md:flex w-10 h-10 lg:w-16 lg:h-16 items-center justify-center transition-all duration-500 opacity-0 transform translate-x-[-20px] ${
                   hoveredIndex === index ? 'opacity-100 translate-x-0' : ''
                 }`}>
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D93611" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D93611" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lg:w-12 lg:h-12">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
                   </svg>

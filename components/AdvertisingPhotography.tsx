@@ -61,27 +61,27 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
 
   return (
     <div className="relative group w-full">
-      <div className="absolute inset-0 z-[110] pointer-events-none flex items-center justify-between px-4 md:px-10">
+      <div className="absolute inset-0 z-[110] pointer-events-none flex items-center justify-between px-4 md:px-10 lg:px-20">
         <button 
           onClick={() => scroll('left')}
           aria-label="Anterior"
-          className="pointer-events-auto w-14 h-14 md:w-24 md:h-24 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-brand-red hover:border-brand-red hover:scale-110 transition-all duration-500 shadow-2xl opacity-100 md:opacity-0 md:group-hover:opacity-100 group/btn"
+          className="pointer-events-auto w-14 h-14 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-brand-red hover:border-brand-red hover:scale-110 transition-all duration-500 shadow-2xl opacity-100 md:opacity-0 md:group-hover:opacity-100 group/btn"
         >
-          <ChevronLeft size={32} className="md:w-12 md:h-12 group-hover/btn:-translate-x-1 transition-transform" strokeWidth={1.5} />
+          <ChevronLeft size={32} className="md:w-12 md:h-12 lg:w-16 lg:h-16 group-hover/btn:-translate-x-1 transition-transform" strokeWidth={1.5} />
         </button>
         
         <button 
           onClick={() => scroll('right')}
           aria-label="Siguiente"
-          className="pointer-events-auto w-14 h-14 md:w-24 md:h-24 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-brand-red hover:border-brand-red hover:scale-110 transition-all duration-500 shadow-2xl opacity-100 md:opacity-0 md:group-hover:opacity-100 group/btn"
+          className="pointer-events-auto w-14 h-14 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-brand-red hover:border-brand-red hover:scale-110 transition-all duration-500 shadow-2xl opacity-100 md:opacity-0 md:group-hover:opacity-100 group/btn"
         >
-          <ChevronRight size={32} className="md:w-12 md:h-12 group-hover/btn:translate-x-1 transition-transform" strokeWidth={1.5} />
+          <ChevronRight size={32} className="md:w-12 md:h-12 lg:w-16 lg:h-16 group-hover/btn:translate-x-1 transition-transform" strokeWidth={1.5} />
         </button>
       </div>
 
-      <div className="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 z-[110] flex flex-col items-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500">
-         <div className="bg-black/80 backdrop-blur-xl px-4 md:px-6 py-1.5 rounded-full border border-white/10 shadow-2xl">
-           <span className="text-[10px] md:text-[12px] font-heading font-black text-white tracking-[0.3em] uppercase">
+      <div className="absolute bottom-6 md:bottom-12 lg:bottom-20 left-1/2 -translate-x-1/2 z-[110] flex flex-col items-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500">
+         <div className="bg-black/80 backdrop-blur-xl px-4 md:px-6 lg:px-8 py-1.5 md:py-2.5 rounded-full border border-white/10 shadow-2xl">
+           <span className="text-[10px] md:text-[12px] lg:text-[14px] font-heading font-black text-white tracking-[0.3em] uppercase">
              {String(activeIndex + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
            </span>
          </div>
@@ -89,7 +89,7 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
            {images.map((_, i) => (
              <div 
                key={i} 
-               className={`h-1 rounded-full transition-all duration-500 ${i === activeIndex ? 'w-8 md:w-12 bg-brand-red shadow-[0_0_15px_rgba(217,54,17,0.6)]' : 'w-2 md:w-3 bg-white/20'}`} 
+               className={`h-1 rounded-full transition-all duration-500 ${i === activeIndex ? 'w-8 md:w-12 lg:w-16 bg-brand-red shadow-[0_0_15px_rgba(217,54,17,0.6)]' : 'w-2 md:w-3 lg:w-4 bg-white/20'}`} 
              />
            ))}
          </div>
@@ -98,7 +98,7 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
       <div 
         ref={scrollRef}
         onScroll={handleScroll}
-        className="flex gap-0 overflow-x-auto snap-x snap-mandatory no-scrollbar perspective-[2500px] py-16 md:py-36 px-[5%] md:px-[15%]"
+        className="flex gap-0 overflow-x-auto snap-x snap-mandatory no-scrollbar perspective-[2500px] py-16 md:py-36 lg:py-52 px-[5%] md:px-[15%] lg:px-[25%]"
       >
         {images.map((img, idx) => {
           const distance = Math.abs(idx - activeIndex);
@@ -110,7 +110,7 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
           return (
             <div 
               key={idx}
-              className={`flex-none w-full ${isBranding ? 'md:w-[1150px]' : 'md:w-[480px]'} ${isBranding ? 'aspect-auto' : 'aspect-[3/4]'} snap-center transition-all duration-1000 cubic-bezier(0.2, 1, 0.3, 1)`}
+              className={`flex-none w-full ${isBranding ? 'md:w-[1150px] lg:w-[1300px]' : 'md:w-[480px] lg:w-[550px]'} ${isBranding ? 'aspect-auto' : 'aspect-[3/4]'} snap-center transition-all duration-1000 cubic-bezier(0.2, 1, 0.3, 1)`}
               style={{
                 transform: `rotateY(${rotation}deg) scale(${scale})`,
                 opacity: opacity,
@@ -118,11 +118,11 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
                 transformStyle: 'preserve-3d'
               }}
             >
-              <div className={`w-full h-full rounded-[1.8rem] ${isBranding ? 'md:rounded-[2.5rem]' : 'md:rounded-[4rem]'} overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)] relative group/img bg-[#050505]`}>
+              <div className={`w-full h-full rounded-[1.8rem] ${isBranding ? 'md:rounded-[2.5rem] lg:rounded-[3.5rem]' : 'md:rounded-[4rem] lg:rounded-[5rem]'} overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)] relative group/img bg-[#050505]`}>
                 <img 
                   src={img} 
                   alt={`${category} ${idx}`} 
-                  className={`w-full h-full transition-transform duration-[6s] group-hover/img:scale-105 ${isBranding ? 'object-contain p-2 md:p-8' : 'object-cover'}`}
+                  className={`w-full h-full transition-transform duration-[6s] group-hover/img:scale-105 ${isBranding ? 'object-contain p-2 md:p-8 lg:p-12' : 'object-cover'}`}
                   style={{ filter: 'brightness(1.1) contrast(1.05)' }} 
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-transparent opacity-10 pointer-events-none"></div>
@@ -130,7 +130,7 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
             </div>
           );
         })}
-        <div className="flex-none w-[10%] md:w-[30%] h-full pointer-events-none"></div>
+        <div className="flex-none w-[10%] md:w-[30%] lg:w-[40%] h-full pointer-events-none"></div>
       </div>
     </div>
   );
@@ -159,8 +159,8 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
   }, [isActive]);
 
   return (
-    <div className="relative w-full max-w-[320px] md:max-w-[600px] mx-auto group">
-      <div className={`relative aspect-[9/16] bg-[#050505] rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_50px_120px_-20px_rgba(0,0,0,1)] transition-all duration-1000 ${isActive ? 'scale-[1.05] ring-1 ring-white/20' : 'opacity-80'}`}>
+    <div className="relative w-full max-w-[320px] md:max-w-[600px] lg:max-w-[700px] mx-auto group">
+      <div className={`relative aspect-[9/16] bg-[#050505] rounded-[2rem] md:rounded-[3rem] lg:rounded-[4rem] overflow-hidden border border-white/10 shadow-[0_50px_120px_-20px_rgba(0,0,0,1)] transition-all duration-1000 ${isActive ? 'scale-[1.05] ring-1 ring-white/20' : 'opacity-80'}`}>
         
         <div 
           onClick={() => onPlay(isActive ? -1 : index)}
@@ -179,22 +179,22 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
           <div className={`absolute inset-0 bg-black/40 transition-opacity duration-700 ${isActive ? 'opacity-0' : 'opacity-50'}`}></div>
           
           <div className="absolute inset-0 flex items-center justify-center z-20">
-            <div className={`w-16 h-16 md:w-24 md:h-24 flex items-center justify-center rounded-full backdrop-blur-xl border border-white/20 transition-all duration-700 ${isActive ? 'bg-brand-red opacity-0 group-hover:opacity-100 scale-75' : 'bg-white/10 scale-100'}`}>
+            <div className={`w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 flex items-center justify-center rounded-full backdrop-blur-xl border border-white/20 transition-all duration-700 ${isActive ? 'bg-brand-red opacity-0 group-hover:opacity-100 scale-75' : 'bg-white/10 scale-100'}`}>
               {isActive ? <Pause size={30} fill="currentColor" /> : <Play size={30} fill="currentColor" className="ml-1" />}
             </div>
           </div>
 
           {isActive && (
-            <div className="absolute top-6 md:top-10 right-6 md:right-10 z-20 animate-in fade-in zoom-in duration-500">
-              <div className="flex items-center gap-2 bg-brand-red text-white px-4 md:px-6 py-1.5 md:py-2 rounded-full text-[10px] md:text-[12px] font-black uppercase tracking-widest shadow-2xl">
-                <Volume2 size={12} /> REEL ACTIVO
+            <div className="absolute top-6 md:top-10 lg:top-14 right-6 md:right-10 lg:right-14 z-20 animate-in fade-in zoom-in duration-500">
+              <div className="flex items-center gap-2 bg-brand-red text-white px-4 md:px-6 lg:px-8 py-1.5 md:py-2 lg:py-3 rounded-full text-[10px] md:text-[12px] lg:text-[14px] font-black uppercase tracking-widest shadow-2xl">
+                <Volume2 size={12} className="lg:w-4 lg:h-4" /> REEL ACTIVO
               </div>
             </div>
           )}
 
-          <div className="absolute bottom-6 md:bottom-12 left-0 w-full flex justify-center z-10 px-6">
-            <div className="bg-black/60 backdrop-blur-md px-5 py-2 md:px-8 md:py-3 border border-white/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-              <span className="text-[9px] md:text-[13px] font-heading font-black text-white uppercase tracking-[0.3em] leading-tight block">
+          <div className="absolute bottom-6 md:bottom-12 lg:bottom-16 left-0 w-full flex justify-center z-10 px-6">
+            <div className="bg-black/60 backdrop-blur-md px-5 py-2 md:px-8 md:py-3 lg:px-10 lg:py-4 border border-white/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              <span className="text-[9px] md:text-[13px] lg:text-[15px] font-heading font-black text-white uppercase tracking-[0.3em] leading-tight block">
                 {clientName}
               </span>
             </div>
@@ -213,7 +213,7 @@ const AdvertisingPhotography: React.FC = () => {
       id: 'gastro',
       title: 'Restaurantes & Gastronomía',
       description: 'Capturamos la esencia, textura y el arte culinario que despierta los sentidos.',
-      icon: <Utensils size={20} className="md:w-6 md:h-6" />,
+      icon: <Utensils size={20} className="md:w-6 md:h-6 lg:w-8 lg:h-8" />,
       images: [
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768277284/C_ejbr3s.jpg',
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768277254/L_monjso.jpg',
@@ -234,7 +234,7 @@ const AdvertisingPhotography: React.FC = () => {
       id: 'corporate',
       title: 'Fotografía Corporativa y marca personal',
       description: 'Potenciamos el liderazgo y la cultura organizacional a través de retratos con autoridad.',
-      icon: <Briefcase size={20} className="md:w-6 md:h-6" />,
+      icon: <Briefcase size={20} className="md:w-6 md:h-6 lg:w-8 lg:h-8" />,
       images: [
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768450619/f7b4dbe4-2d0d-4f38-b6de-414774259dd4_jwr9oz.jpg',
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768450619/0a7f7504-3f94-482e-853a-300078e86c59_zw0xah.jpg',
@@ -245,7 +245,7 @@ const AdvertisingPhotography: React.FC = () => {
       id: 'health',
       title: 'Salud & Bienestar',
       description: 'Luz, pureza y equilibrio para marcas que cuidan de la vida y el bienestar.',
-      icon: <HeartPulse size={20} className="md:w-6 md:h-6" />,
+      icon: <HeartPulse size={20} className="md:w-6 md:h-6 lg:w-8 lg:h-8" />,
       images: [
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768404487/IMG_9923_gd99kp.jpg',
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768404541/IMG_9922_j2fryv.jpg',
@@ -256,7 +256,7 @@ const AdvertisingPhotography: React.FC = () => {
       id: 'branding',
       title: 'Branding para Negocios',
       description: 'Construimos identidades visuales que trascienden. Diseño estratégico para marcas líderes.',
-      icon: <Palette size={20} className="md:w-6 md:h-6" />,
+      icon: <Palette size={20} className="md:w-6 md:h-6 lg:w-8 lg:h-8" />,
       isBranding: true,
       images: [
         'https://res.cloudinary.com/drvs81bl0/image/upload/v1768364903/logo_propuestas-Dra._Mary_Taiz_2_1_igvlr8.png',
@@ -284,36 +284,36 @@ const AdvertisingPhotography: React.FC = () => {
   };
 
   return (
-    <section id="advertising-photography" className="py-20 md:py-48 bg-black overflow-hidden">
-      <div className="max-w-[1600px] mx-auto">
+    <section id="advertising-photography" className="py-20 md:py-48 lg:py-64 bg-black overflow-hidden">
+      <div className="max-w-[1600px] xl:max-w-[1800px] mx-auto">
         
-        <div className="flex flex-col items-center text-center mb-16 md:mb-24 px-6">
-          <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
-            <div className="w-10 md:w-16 h-[1px] bg-brand-red"></div>
-            <span className="text-brand-red font-heading font-[900] tracking-tighter text-[10px] md:text-[14px] uppercase">
+        <div className="flex flex-col items-center text-center mb-16 md:mb-24 lg:mb-32 px-6">
+          <div className="flex items-center gap-3 md:gap-4 lg:gap-8 mb-4 md:mb-6">
+            <div className="w-10 md:w-16 lg:w-24 h-[1px] bg-brand-red"></div>
+            <span className="text-brand-red font-heading font-[900] tracking-tighter text-[10px] md:text-[14px] lg:text-[18px] uppercase">
               PORTAFOLIO EXCLUSIVO
             </span>
-            <div className="w-10 md:w-16 h-[1px] bg-brand-red"></div>
+            <div className="w-10 md:w-16 lg:w-24 h-[1px] bg-brand-red"></div>
           </div>
-          <h2 className="text-[2rem] md:text-[8rem] font-heading font-[900] uppercase tracking-tighter leading-[0.9] md:leading-[0.8] text-white">
+          <h2 className="text-[2rem] md:text-[8rem] lg:text-[10rem] xl:text-[12.5rem] font-heading font-[900] uppercase tracking-tighter leading-[0.9] md:leading-[0.8] text-white">
             GALERÍA <br />
             DACTILAR
           </h2>
         </div>
 
-        <div className="space-y-24 md:space-y-48">
+        <div className="space-y-24 md:space-y-48 lg:space-y-64">
           {sections.map((section) => (
             <div key={section.id} className="flex flex-col items-center">
-              <div className="flex flex-col items-center text-center space-y-4 md:space-y-6 mb-4 md:mb-8 max-w-3xl px-6">
-                <div className="flex items-center gap-3 md:gap-5 text-brand-red mb-1">
-                  <div className="p-3 md:p-4 bg-brand-red/10 rounded-xl md:rounded-2xl">
+              <div className="flex flex-col items-center text-center space-y-4 md:space-y-6 lg:space-y-10 mb-4 md:mb-8 lg:mb-12 max-w-3xl lg:max-w-5xl px-6">
+                <div className="flex items-center gap-3 md:gap-5 lg:gap-8 text-brand-red mb-1">
+                  <div className="p-3 md:p-4 lg:p-6 bg-brand-red/10 rounded-xl md:rounded-2xl lg:rounded-3xl">
                     {section.icon}
                   </div>
-                  <h3 className="text-xl md:text-6xl font-heading font-black uppercase tracking-tighter text-white text-center">
+                  <h3 className="text-xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-black uppercase tracking-tighter text-white text-center">
                     {section.title}
                   </h3>
                 </div>
-                <p className="text-zinc-500 text-xs md:text-lg font-light max-w-2xl leading-relaxed italic">
+                <p className="text-zinc-500 text-xs md:text-lg lg:text-xl font-light max-w-2xl lg:max-w-4xl leading-relaxed italic">
                   {section.description}
                 </p>
               </div>
@@ -322,21 +322,21 @@ const AdvertisingPhotography: React.FC = () => {
             </div>
           ))}
 
-          <div className="flex flex-col space-y-20 md:space-y-32 pt-16 md:pt-32 px-6">
-            <div className="flex flex-col items-center text-center space-y-6 md:space-y-8">
-              <div className="flex items-center gap-4 md:gap-6 text-brand-red">
-                <Instagram size={24} className="md:w-8 md:h-8" strokeWidth={2.5} />
-                <h3 className="text-3xl md:text-[7rem] font-heading font-black uppercase tracking-tighter text-white leading-none">
+          <div className="flex flex-col space-y-20 md:space-y-32 lg:space-y-48 pt-16 md:pt-32 lg:pt-48 px-6">
+            <div className="flex flex-col items-center text-center space-y-6 md:space-y-8 lg:space-y-12">
+              <div className="flex items-center gap-4 md:gap-6 lg:gap-10 text-brand-red">
+                <Instagram size={24} className="md:w-8 md:h-8 lg:w-12 lg:h-12" strokeWidth={2.5} />
+                <h3 className="text-3xl md:text-[7rem] lg:text-[9rem] xl:text-[11rem] font-heading font-black uppercase tracking-tighter text-white leading-none">
                   VIDEO <br className="md:hidden" /> REELS
                 </h3>
               </div>
-              <p className="text-zinc-500 text-xs md:text-xl max-w-3xl font-light leading-relaxed">
+              <p className="text-zinc-500 text-xs md:text-xl lg:text-2xl max-w-3xl lg:max-w-5xl font-light leading-relaxed">
                 Diseñamos piezas audiovisuales que dominan el algoritmo. <br className="hidden md:block" />
                 Estética cinematográfica adaptada al formato vertical.
               </p>
             </div>
 
-            <div className="flex flex-col items-center gap-20 md:gap-48 w-full max-w-[1200px] mx-auto">
+            <div className="flex flex-col items-center gap-20 md:gap-48 lg:gap-64 w-full max-w-[1200px] lg:max-w-[1400px] mx-auto">
               {videoReelsData.map((video, vIdx) => (
                 <VideoReelItem 
                   key={vIdx} 
@@ -351,14 +351,14 @@ const AdvertisingPhotography: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-24 md:mt-48 pt-12 md:pt-20 border-t border-zinc-900 flex justify-center px-6">
+        <div className="mt-24 md:mt-48 lg:mt-64 pt-12 md:pt-20 lg:pt-32 border-t border-zinc-900 flex justify-center px-6">
            <button 
              onClick={scrollToContact}
-             className="relative group w-full md:w-auto px-10 md:px-16 py-6 md:py-8 bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl overflow-hidden hover:bg-brand-red hover:border-brand-red transition-all duration-700 shadow-xl"
+             className="relative group w-full md:w-auto px-10 md:px-16 lg:px-24 py-6 md:py-8 lg:py-12 bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl lg:rounded-[3rem] overflow-hidden hover:bg-brand-red hover:border-brand-red transition-all duration-700 shadow-xl"
            >
-              <div className="relative z-10 flex items-center justify-center gap-4 md:gap-6">
-                <Camera size={18} className="md:w-6 md:h-6 text-brand-red group-hover:text-white transition-all duration-500" />
-                <span className="text-[10px] md:text-[12px] font-heading font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-white">
+              <div className="relative z-10 flex items-center justify-center gap-4 md:gap-6 lg:gap-10">
+                <Camera size={18} className="md:w-6 md:h-6 lg:w-10 lg:h-10 text-brand-red group-hover:text-white transition-all duration-500" />
+                <span className="text-[10px] md:text-[12px] lg:text-[16px] font-heading font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-white">
                   EMPEZAR PROYECTO
                 </span>
               </div>
