@@ -20,7 +20,7 @@ const CIOSection: React.FC = () => {
           ></div>
           <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-72 lg:h-72 rounded-full overflow-hidden border-[3px] border-black shadow-[0_0_40px_rgba(84,8,160,0.2)]">
             <img 
-              src="https://res.cloudinary.com/drvs81bl0/image/upload/v1768415486/perfil_antony_1_unovza.png" 
+              src="https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986092/perfil_antony_1_ampny3.png" 
               alt="Antony Palacios - Fundador" 
               className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
             />

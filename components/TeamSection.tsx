@@ -1,44 +1,40 @@
 import React from 'react';
 
 const TeamSection: React.FC = () => {
-  // Colores de la marca
   const brandRed = "#D93611";
 
   return (
-    <section id="team" className="relative pt-16 pb-0 md:pt-32 lg:pt-36 bg-black overflow-hidden flex flex-col items-center">
+    <section id="team" className="relative pt-16 pb-0 md:pt-32 lg:pt-24 bg-black overflow-hidden flex flex-col items-center">
       
       {/* Header Section */}
-      <div className="relative mb-10 md:mb-24 lg:mb-20 text-center px-4 max-w-6xl lg:max-w-5xl xl:max-w-6xl mx-auto z-10">
+      <div className="relative mb-10 md:mb-24 lg:mb-12 text-center px-4 max-w-6xl lg:max-w-4xl xl:max-w-5xl mx-auto z-10">
         
-        {/* Optimized Typography for Desktop without touching Mobile */}
-        <h2 className="text-white font-heading font-[900] text-[2.2rem] md:text-[6rem] lg:text-[3.5rem] xl:text-[4.2rem] leading-[0.8] uppercase tracking-tighter mb-1 md:mb-2 lg:mb-2">
+        <h2 className="text-white font-heading font-[900] text-[2.2rem] md:text-[6rem] lg:text-[2.8rem] xl:text-[3.5rem] leading-[0.8] uppercase tracking-tighter mb-1 md:mb-2 lg:mb-1">
           NUESTRO EQUIPO
         </h2>
         <h2 
-          className="font-heading font-[900] text-[3rem] md:text-[9rem] lg:text-[5rem] xl:text-[6.5rem] leading-[0.8] uppercase tracking-tighter italic drop-shadow-[0_10px_30px_rgba(217,54,17,0.4)]" 
+          className="font-heading font-[900] text-[3rem] md:text-[9rem] lg:text-[4rem] xl:text-[5.5rem] leading-[0.8] uppercase tracking-tighter italic drop-shadow-[0_10px_30px_rgba(217,54,17,0.4)] text-center" 
           style={{ color: brandRed }}
         >
           DE CRACKS!
         </h2>
       </div>
 
-      {/* Main Team Photo Section - Adjusted max-width for Desktop to be more contained */}
-      <div className="relative w-full max-w-[1400px] lg:max-w-[1000px] xl:max-w-[1200px] mx-auto px-4 md:px-12 lg:px-0 z-10 mb-12 md:mb-20 lg:mb-24">
+      {/* Main Team Photo Section */}
+      <div className="relative w-full max-w-[1400px] lg:max-w-[900px] xl:max-w-[1000px] mx-auto px-4 md:px-12 lg:px-0 z-10 mb-12 md:mb-20 lg:mb-16">
         <div className="relative aspect-video md:aspect-[21/9] overflow-hidden rounded-[2px] border border-white/10 group animate-in fade-in slide-in-from-bottom-8 duration-1000 ease-out">
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 z-10"></div>
           <img 
-            src="https://res.cloudinary.com/drvs81bl0/image/upload/v1768361689/elegida2_3_1_l9mgcq.png" 
+            src="https://res.cloudinary.com/dhcgob2tx/image/upload/v1772031829/elegida2_3_1_iuqczo.png" 
             alt="Dactilar Team"
             className="w-full h-full object-cover transition-all duration-[2s] scale-100 group-hover:scale-105"
           />
           
-          {/* Subtle Brand Overlay */}
           <div className="absolute inset-0 bg-brand-red/5 mix-blend-overlay z-20 pointer-events-none"></div>
           
-          {/* Action Caption */}
-          <div className="absolute bottom-4 left-4 md:bottom-10 md:left-10 lg:bottom-10 lg:left-10 z-30 flex items-center gap-3 md:gap-6">
-            <div className="w-8 md:w-12 lg:w-12 h-[1px] bg-brand-red"></div>
-            <p className="text-white font-heading font-bold text-[10px] md:text-xs lg:text-[11px] uppercase tracking-[0.4em] drop-shadow-md">
+          <div className="absolute bottom-4 left-4 md:bottom-10 md:left-10 lg:bottom-6 lg:left-6 z-30 flex items-center gap-3 md:gap-6">
+            <div className="w-8 md:w-12 lg:w-8 h-[1px] bg-brand-red"></div>
+            <p className="text-white font-heading font-bold text-[10px] md:text-xs lg:text-[9px] uppercase tracking-[0.4em] drop-shadow-md">
               DACTILAR TEAM
             </p>
           </div>

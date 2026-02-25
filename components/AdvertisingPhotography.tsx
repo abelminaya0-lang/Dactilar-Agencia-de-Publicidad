@@ -64,24 +64,22 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
       <div className="absolute inset-0 z-[110] pointer-events-none flex items-center justify-between px-4 md:px-10 lg:px-20">
         <button 
           onClick={() => scroll('left')}
-          aria-label="Anterior"
-          className="pointer-events-auto w-14 h-14 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-brand-red hover:border-brand-red hover:scale-110 transition-all duration-500 shadow-2xl opacity-100 md:opacity-0 md:group-hover:opacity-100 group/btn"
+          className="pointer-events-auto w-14 h-14 md:w-20 md:h-20 lg:w-14 lg:h-14 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-brand-red transition-all duration-500 shadow-2xl opacity-100 md:opacity-0 md:group-hover:opacity-100"
         >
-          <ChevronLeft size={32} className="md:w-12 md:h-12 lg:w-14 lg:h-14 group-hover/btn:-translate-x-1 transition-transform" strokeWidth={1.5} />
+          <ChevronLeft size={20} strokeWidth={2} />
         </button>
         
         <button 
           onClick={() => scroll('right')}
-          aria-label="Siguiente"
-          className="pointer-events-auto w-14 h-14 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-brand-red hover:border-brand-red hover:scale-110 transition-all duration-500 shadow-2xl opacity-100 md:opacity-0 md:group-hover:opacity-100 group/btn"
+          className="pointer-events-auto w-14 h-14 md:w-20 md:h-20 lg:w-14 lg:h-14 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-brand-red transition-all duration-500 shadow-2xl opacity-100 md:opacity-0 md:group-hover:opacity-100"
         >
-          <ChevronRight size={32} className="md:w-12 md:h-12 lg:w-14 lg:h-14 group-hover/btn:translate-x-1 transition-transform" strokeWidth={1.5} />
+          <ChevronRight size={20} strokeWidth={2} />
         </button>
       </div>
 
-      <div className="absolute bottom-6 md:bottom-12 lg:bottom-16 left-1/2 -translate-x-1/2 z-[110] flex flex-col items-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500">
-         <div className="bg-black/80 backdrop-blur-xl px-4 md:px-6 lg:px-7 py-1.5 md:py-2 rounded-full border border-white/10 shadow-2xl">
-           <span className="text-[10px] md:text-[12px] lg:text-[13px] font-heading font-black text-white tracking-[0.3em] uppercase">
+      <div className="absolute bottom-6 md:bottom-12 lg:bottom-10 left-1/2 -translate-x-1/2 z-[110] flex flex-col items-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500">
+         <div className="bg-black/80 backdrop-blur-xl px-4 md:px-6 py-1.5 md:py-1.5 rounded-full border border-white/10 shadow-2xl">
+           <span className="text-[10px] md:text-[12px] font-heading font-black text-white tracking-[0.3em] uppercase">
              {String(activeIndex + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
            </span>
          </div>
@@ -89,7 +87,7 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
            {images.map((_, i) => (
              <div 
                key={i} 
-               className={`h-1 rounded-full transition-all duration-500 ${i === activeIndex ? 'w-8 md:w-12 lg:w-14 bg-brand-red shadow-[0_0_15px_rgba(217,54,17,0.6)]' : 'w-2 md:w-3 lg:w-3.5 bg-white/20'}`} 
+               className={`h-1 rounded-full transition-all duration-500 ${i === activeIndex ? 'w-8 md:w-12 bg-brand-red' : 'w-2 md:w-3 bg-white/20'}`} 
              />
            ))}
          </div>
@@ -98,19 +96,19 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
       <div 
         ref={scrollRef}
         onScroll={handleScroll}
-        className="flex gap-0 overflow-x-auto snap-x snap-mandatory no-scrollbar perspective-[2500px] py-16 md:py-36 lg:py-44 px-[5%] md:px-[15%] lg:px-[25%]"
+        className="flex gap-0 overflow-x-auto snap-x snap-mandatory no-scrollbar perspective-[1500px] py-16 md:py-32 lg:py-20 px-[5%] md:px-[15%] lg:px-[25%]"
       >
         {images.map((img, idx) => {
           const distance = Math.abs(idx - activeIndex);
-          const rotation = (idx - activeIndex) * (isBranding ? -2 : -7);
-          const scale = 1 - Math.min(distance * (isBranding ? 0.05 : 0.07), 0.3);
-          const opacity = 1 - Math.min(distance * 0.15, 0.4);
+          const rotation = (idx - activeIndex) * (isBranding ? -2 : -5);
+          const scale = 1 - Math.min(distance * (isBranding ? 0.04 : 0.06), 0.2);
+          const opacity = 1 - Math.min(distance * 0.1, 0.3);
           const zIndex = 100 - distance;
 
           return (
             <div 
               key={idx}
-              className={`flex-none w-full ${isBranding ? 'md:w-[1150px] lg:w-[1200px]' : 'md:w-[480px] lg:w-[500px]'} ${isBranding ? 'aspect-auto' : 'aspect-[3/4]'} snap-center transition-all duration-1000 cubic-bezier(0.2, 1, 0.3, 1)`}
+              className={`flex-none w-full ${isBranding ? 'md:w-[450px] lg:w-[400px]' : 'md:w-[480px] lg:w-[420px]'} ${isBranding ? 'aspect-[9/16]' : 'aspect-[3/4]'} snap-center transition-all duration-1000 cubic-bezier(0.2, 1, 0.3, 1)`}
               style={{
                 transform: `rotateY(${rotation}deg) scale(${scale})`,
                 opacity: opacity,
@@ -118,12 +116,11 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
                 transformStyle: 'preserve-3d'
               }}
             >
-              <div className={`w-full h-full rounded-[1.8rem] ${isBranding ? 'md:rounded-[2.5rem] lg:rounded-[3rem]' : 'md:rounded-[4rem] lg:rounded-[4.5rem]'} overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)] relative group/img bg-[#050505]`}>
+              <div className={`w-full h-full rounded-[1.8rem] ${isBranding ? 'md:rounded-[2rem] lg:rounded-[1.2rem]' : 'md:rounded-[3rem] lg:rounded-[2rem]'} overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.6)] relative group/img bg-[#050505]`}>
                 <img 
                   src={img} 
                   alt={`${category} ${idx}`} 
-                  className={`w-full h-full transition-transform duration-[6s] group-hover/img:scale-105 ${isBranding ? 'object-contain p-2 md:p-8 lg:p-10' : 'object-cover'}`}
-                  style={{ filter: 'brightness(1.1) contrast(1.05)' }} 
+                  className={`w-full h-full transition-transform duration-[6s] group-hover/img:scale-105 ${isBranding ? 'object-contain' : 'object-cover'}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-transparent opacity-10 pointer-events-none"></div>
               </div>
@@ -139,18 +136,11 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
 const VideoReelItem: React.FC<{src: string, index: number, clientName: string, isActive: boolean, onPlay: (n: number) => void}> = ({ src, index, clientName, isActive, onPlay }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   
-  const getPosterUrl = (url: string) => {
-    if (url.includes('cloudinary.com')) {
-      return url.replace(/\.[^/.]+$/, ".jpg");
-    }
-    return "";
-  };
-
   useEffect(() => {
     if (videoRef.current) {
       if (isActive) {
         videoRef.current.muted = false;
-        videoRef.current.play().catch(err => console.log(err));
+        videoRef.current.play().catch(err => console.error("Error playing reel:", err));
       } else {
         videoRef.current.pause();
         videoRef.current.muted = true;
@@ -159,8 +149,8 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
   }, [isActive]);
 
   return (
-    <div className="relative w-full max-w-[320px] md:max-w-[600px] lg:max-w-[650px] mx-auto group">
-      <div className={`relative aspect-[9/16] bg-[#050505] rounded-[2rem] md:rounded-[3rem] lg:rounded-[3.5rem] overflow-hidden border border-white/10 shadow-[0_50px_120px_-20px_rgba(0,0,0,1)] transition-all duration-1000 ${isActive ? 'scale-[1.05] ring-1 ring-white/20' : 'opacity-80'}`}>
+    <div className="relative w-full max-w-[320px] md:max-w-[550px] lg:max-w-[400px] mx-auto group">
+      <div className={`relative aspect-[9/16] bg-[#050505] rounded-[2rem] md:rounded-[3rem] lg:rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_50px_120px_-20px_rgba(0,0,0,1)] transition-all duration-1000 ${isActive ? 'scale-[1.05]' : 'opacity-90'}`}>
         
         <div 
           onClick={() => onPlay(isActive ? -1 : index)}
@@ -168,33 +158,26 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
         >
           <video 
             ref={videoRef} 
-            src={src} 
             loop 
             muted 
             playsInline 
-            poster={getPosterUrl(src)}
+            preload="auto"
             className="w-full h-full object-cover bg-zinc-950" 
-          />
+          >
+             <source src={src} type="video/mp4" />
+          </video>
           
           <div className={`absolute inset-0 bg-black/40 transition-opacity duration-700 ${isActive ? 'opacity-0' : 'opacity-50'}`}></div>
           
           <div className="absolute inset-0 flex items-center justify-center z-20">
-            <div className={`w-16 h-16 md:w-24 md:h-24 lg:w-28 lg:h-28 flex items-center justify-center rounded-full backdrop-blur-xl border border-white/20 transition-all duration-700 ${isActive ? 'bg-brand-red opacity-0 group-hover:opacity-100 scale-75' : 'bg-white/10 scale-100'}`}>
-              {isActive ? <Pause size={30} fill="currentColor" /> : <Play size={30} fill="currentColor" className="ml-1" />}
+            <div className={`w-16 h-16 md:w-20 md:h-20 lg:w-16 lg:h-16 flex items-center justify-center rounded-full backdrop-blur-xl border border-white/20 transition-all duration-700 ${isActive ? 'bg-brand-red opacity-0 scale-75' : 'bg-white/10 scale-100'}`}>
+              {isActive ? <Pause size={24} fill="currentColor" /> : <Play size={24} fill="currentColor" className="ml-1" />}
             </div>
           </div>
 
-          {isActive && (
-            <div className="absolute top-6 md:top-10 lg:top-12 right-6 md:right-10 lg:right-12 z-20 animate-in fade-in zoom-in duration-500">
-              <div className="flex items-center gap-2 bg-brand-red text-white px-4 md:px-6 lg:px-7 py-1.5 md:py-2 rounded-full text-[10px] md:text-[12px] lg:text-[13px] font-black uppercase tracking-widest shadow-2xl">
-                <Volume2 size={12} className="lg:w-4 lg:h-4" /> REEL ACTIVO
-              </div>
-            </div>
-          )}
-
-          <div className="absolute bottom-6 md:bottom-12 lg:bottom-14 left-0 w-full flex justify-center z-10 px-6">
-            <div className="bg-black/60 backdrop-blur-md px-5 py-2 md:px-8 md:py-3 lg:px-9 lg:py-3.5 border border-white/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-              <span className="text-[9px] md:text-[13px] lg:text-[14px] font-heading font-black text-white uppercase tracking-[0.3em] leading-tight block">
+          <div className="absolute bottom-6 md:bottom-12 lg:bottom-10 left-0 w-full flex justify-center z-10 px-6">
+            <div className="bg-black/60 backdrop-blur-md px-5 py-2 md:px-8 md:py-3 lg:px-6 lg:py-2 border border-white/10 rounded-full">
+              <span className="text-[9px] md:text-[13px] lg:text-[11px] font-heading font-black text-white uppercase tracking-[0.3em] leading-tight block">
                 {clientName}
               </span>
             </div>
@@ -213,69 +196,67 @@ const AdvertisingPhotography: React.FC = () => {
       id: 'gastro',
       title: 'Restaurantes & Gastronomía',
       description: 'Capturamos la esencia, textura y el arte culinario que despierta los sentidos.',
-      icon: <Utensils size={20} className="md:w-6 md:h-6 lg:w-7 lg:h-7" />,
+      icon: <Utensils size={18} />,
       images: [
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768277284/C_ejbr3s.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768277254/L_monjso.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768277294/G_vyymxq.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768362611/A_b2xwqc.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768362753/F_xzmk66.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768362774/H_ussith.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768362888/B_puokkg.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768362893/O_libglo.png',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768363896/D_c806er.png',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768363879/DSC00321_dpyk1k.png',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768363845/E_wfnpy2.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768363786/N_q2hvr6.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768363746/J_l6fiye.jpg'
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986279/DSC00321_bx3p7b.png',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986260/J_d0xpt8.jpg',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986252/N_yivpwk.jpg',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986246/A_shofjx.jpg',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986247/F_kb7soe.jpg',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986237/H_oljhpv.jpg',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986240/B_1_rylij9.jpg',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986235/B_xdrsvc.jpg',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986225/O_owucxd.png',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986204/D_q2dioe.png',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986183/E_osybv3.jpg'
       ]
     },
     {
       id: 'corporate',
-      title: 'Fotografía Corporativa y marca personal',
+      title: 'Fotografía Corporativa',
       description: 'Potenciamos el liderazgo y la cultura organizacional a través de retratos con autoridad.',
-      icon: <Briefcase size={20} className="md:w-6 md:h-6 lg:w-7 lg:h-7" />,
+      icon: <Briefcase size={18} />,
       images: [
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768450619/f7b4dbe4-2d0d-4f38-b6de-414774259dd4_jwr9oz.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768450619/0a7f7504-3f94-482e-853a-300078e86c59_zw0xah.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768450619/67300edd-3a61-4665-a786-f32327a8fd58_yy03ds.jpg'
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986622/f7b4dbe4-2d0d-4f38-b6de-414774259dd4_klvx6w.jpg',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986611/67300edd-3a61-4665-a786-f32327a8fd58_xij8cg.jpg',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986612/45ae4f5d-d9fa-4fd2-9885-9b6591adddc4_nfovff.jpg'
       ]
     },
     {
       id: 'health',
       title: 'Salud & Bienestar',
       description: 'Luz, pureza y equilibrio para marcas que cuidan de la vida y el bienestar.',
-      icon: <HeartPulse size={20} className="md:w-6 md:h-6 lg:w-7 lg:h-7" />,
+      icon: <HeartPulse size={18} />,
       images: [
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768404487/IMG_9923_gd99kp.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768404541/IMG_9922_j2fryv.jpg',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768404541/IMG_9921_hl34fh.jpg'
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986624/IMG_9923_t03can.jpg',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986623/IMG_9922_bwfje9.jpg',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1771986623/IMG_9921_l3muiz.jpg'
       ]
     },
     {
       id: 'branding',
       title: 'Branding para Negocios',
       description: 'Construimos identidades visuales que trascienden. Diseño estratégico para marcas líderes.',
-      icon: <Palette size={20} className="md:w-6 md:h-6 lg:w-7 lg:h-7" />,
+      icon: <Palette size={18} />,
       isBranding: true,
       images: [
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768364903/logo_propuestas-Dra._Mary_Taiz_2_1_igvlr8.png',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768364903/LOGO-BRANDBOARD-CARLOS_1_xfe0j2.png',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768365444/Metal_Custom_logo_2_1_oc9yn4.png',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768365445/Dra._Cano_logo_1_jhalxt.png',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768364902/LOGO-BRANDBOARD-TAMAL_1_ivrnyi.png',
-        'https://res.cloudinary.com/drvs81bl0/image/upload/v1768364901/Brand_board_ALIF-01_2_eesvgx.png'
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1772030942/Metal_Custom_logo_2_tppfcu.png',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1772030938/logo_propuestas-Dra._Mary_Taiz_2_wzh4iu.png',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1772030934/LOGO-BRANDBOARD-TAMAL_1_hhctjg.png',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1772030933/Dra._Cano_logo_1_hoenhw.png',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1772030925/LOGO-BRANDBOARD-CARLOS_1_h7tceh.png',
+        'https://res.cloudinary.com/dhcgob2tx/image/upload/v1772030925/Brand_board_ALIF-01_2_edtt21.png'
       ]
     }
   ];
 
   const videoReelsData = [
-    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768416904/alamos-final-de-finales_ID09V7Pp_bkgfin.mp4', client: 'Los Álamos' },
-    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768279277/okami_jdrama_bys9jw.mp4', client: 'Okami Sushi Bar' },
-    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281357/insomnio-sab-3_5hlJHFBQ_zxjio2.mp4', client: 'HOUSE MUSIC' },
-    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281200/caja-huancayo-aplicativo-digital_zNx524iB_fu85dg.mp4', client: 'Caja Huancayo' },
-    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768281641/labrador-valentin-1_EypTPCcu_we8epy.mp4', client: 'Labrador Restaurante' },
-    { src: 'https://res.cloudinary.com/drvs81bl0/video/upload/v1768282343/antonios-ubi_khKmU4JL_wafe2m.mp4', client: 'Antonio Restaurant' }
+    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032528/alamos-final-de-finales_ID09V7Pp_kqm2de.mp4', client: 'Los Álamos' },
+    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772033696/okami_mesa_tepan_vevzdy.mp4', client: 'Okami Sushi Bar' },
+    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032333/insomnio-sab-3_5hlJHFBQ_bdcojw.mp4', client: 'HOUSE MUSIC' },
+    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032329/caja-huancayo-aplicativo-digital_zNx524iB_o51dql.mp4', client: 'Caja Huancayo' },
+    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032312/labrador-valentin-1_EypTPCcu_glmydm.mp4', client: 'Labrador Restaurante' },
+    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032306/antonios-ubi_khKmU4JL_p9qytb.mp4', client: 'Antonio Restaurant' }
   ];
 
   const scrollToContact = () => {
@@ -284,36 +265,36 @@ const AdvertisingPhotography: React.FC = () => {
   };
 
   return (
-    <section id="advertising-photography" className="py-20 md:py-48 lg:py-56 bg-black overflow-hidden">
-      <div className="max-w-[1600px] xl:max-w-[1700px] mx-auto">
+    <section id="advertising-photography" className="py-20 md:py-40 lg:py-24 bg-black overflow-hidden">
+      <div className="max-w-[1600px] xl:max-w-[1600px] mx-auto">
         
-        <div className="flex flex-col items-center text-center mb-16 md:mb-24 lg:mb-28 px-6">
-          <div className="flex items-center gap-3 md:gap-4 lg:gap-6 mb-4 md:mb-6">
-            <div className="w-10 md:w-16 lg:w-20 h-[1px] bg-brand-red"></div>
-            <span className="text-brand-red font-heading font-[900] tracking-tighter text-[10px] md:text-[14px] lg:text-[15px] uppercase">
+        <div className="flex flex-col items-center text-center mb-16 md:mb-24 lg:mb-10 px-6">
+          <div className="flex items-center gap-3 md:gap-4 lg:gap-5 mb-4 md:mb-6">
+            <div className="w-10 md:w-16 lg:w-10 h-[1px] bg-brand-red"></div>
+            <span className="text-brand-red font-heading font-[900] tracking-tighter text-[10px] md:text-[14px] lg:text-[12px] uppercase">
               PORTAFOLIO EXCLUSIVO
             </span>
-            <div className="w-10 md:w-16 lg:w-20 h-[1px] bg-brand-red"></div>
+            <div className="w-10 md:w-16 lg:w-10 h-[1px] bg-brand-red"></div>
           </div>
-          <h2 className="text-[2rem] md:text-[5rem] lg:text-[4.5rem] xl:text-[5.5rem] font-heading font-[900] uppercase tracking-tighter leading-[0.9] md:leading-[0.8] text-white">
+          <h2 className="text-[2rem] md:text-[5rem] lg:text-[2.8rem] xl:text-[3.5rem] font-heading font-[900] uppercase tracking-tighter leading-[0.9] md:leading-[0.8] text-white text-center">
             GALERÍA <br />
             DACTILAR
           </h2>
         </div>
 
-        <div className="space-y-24 md:space-y-48 lg:space-y-56">
+        <div className="space-y-24 md:space-y-48 lg:space-y-24">
           {sections.map((section) => (
             <div key={section.id} className="flex flex-col items-center">
-              <div className="flex flex-col items-center text-center space-y-4 md:space-y-6 lg:space-y-8 mb-4 md:mb-8 lg:mb-10 max-w-3xl lg:max-w-4xl px-6">
-                <div className="flex items-center gap-3 md:gap-5 lg:gap-6 text-brand-red mb-1">
-                  <div className="p-3 md:p-4 lg:p-5 bg-brand-red/10 rounded-xl md:rounded-2xl lg:rounded-2xl">
+              <div className="flex flex-col items-center text-center space-y-4 md:space-y-6 lg:space-y-2 mb-4 md:mb-8 lg:mb-2 max-w-3xl lg:max-w-4xl px-6">
+                <div className="flex items-center gap-3 md:gap-5 lg:gap-4 text-brand-red mb-1">
+                  <div className="p-3 md:p-4 lg:p-2 bg-brand-red/10 rounded-xl md:rounded-2xl lg:rounded-lg">
                     {section.icon}
                   </div>
-                  <h3 className="text-xl md:text-5xl lg:text-4.5xl xl:text-5xl font-heading font-black uppercase tracking-tighter text-white text-center">
+                  <h3 className="text-xl md:text-5xl lg:text-[1.6rem] xl:text-[2.2rem] font-heading font-black uppercase tracking-tighter text-white text-center">
                     {section.title}
                   </h3>
                 </div>
-                <p className="text-zinc-500 text-xs md:text-lg lg:text-lg font-light max-w-2xl lg:max-w-3xl leading-relaxed italic">
+                <p className="text-zinc-500 text-xs md:text-lg lg:text-sm font-light max-w-2xl lg:max-w-3xl leading-relaxed italic">
                   {section.description}
                 </p>
               </div>
@@ -322,21 +303,21 @@ const AdvertisingPhotography: React.FC = () => {
             </div>
           ))}
 
-          <div className="flex flex-col space-y-20 md:space-y-32 lg:space-y-40 pt-16 md:pt-32 lg:pt-40 px-6">
-            <div className="flex flex-col items-center text-center space-y-6 md:space-y-8 lg:space-y-10">
-              <div className="flex items-center gap-4 md:gap-6 lg:gap-8 text-brand-red">
-                <Instagram size={24} className="md:w-8 md:h-8 lg:w-10 lg:h-10" strokeWidth={2.5} />
-                <h3 className="text-3xl md:text-[5rem] lg:text-[4.2rem] xl:text-[5rem] font-heading font-black uppercase tracking-tighter text-white leading-none">
+          <div className="flex flex-col space-y-20 md:space-y-32 lg:space-y-16 pt-16 md:pt-32 lg:pt-16 px-6">
+            <div className="flex flex-col items-center text-center space-y-6 md:space-y-8 lg:space-y-4">
+              <div className="flex items-center gap-4 md:gap-6 lg:gap-5 text-brand-red">
+                <Instagram size={24} className="lg:w-6 lg:h-6" />
+                <h3 className="text-3xl md:text-[5rem] lg:text-[2.5rem] xl:text-[3.5rem] font-heading font-black uppercase tracking-tighter text-white leading-none">
                   VIDEO <br className="md:hidden" /> REELS
                 </h3>
               </div>
-              <p className="text-zinc-500 text-xs md:text-xl lg:text-xl max-w-3xl lg:max-w-4xl font-light leading-relaxed">
+              <p className="text-zinc-500 text-xs md:text-xl lg:text-sm max-w-3xl lg:max-w-4xl font-light leading-relaxed">
                 Diseñamos piezas audiovisuales que dominan el algoritmo. <br className="hidden md:block" />
                 Estética cinematográfica adaptada al formato vertical.
               </p>
             </div>
 
-            <div className="flex flex-col items-center gap-20 md:gap-48 lg:gap-56 w-full max-w-[1200px] lg:max-w-[1300px] mx-auto">
+            <div className="flex flex-col items-center gap-20 md:gap-48 lg:gap-24 w-full max-w-[1200px] lg:max-w-[1000px] mx-auto">
               {videoReelsData.map((video, vIdx) => (
                 <VideoReelItem 
                   key={vIdx} 
@@ -351,26 +332,20 @@ const AdvertisingPhotography: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-24 md:mt-48 lg:mt-56 pt-12 md:pt-20 lg:pt-24 border-t border-zinc-900 flex justify-center px-6">
+        <div className="mt-24 md:mt-48 lg:mt-32 pt-12 md:pt-20 lg:pt-10 border-t border-zinc-900 flex justify-center px-6">
            <button 
              onClick={scrollToContact}
-             className="relative group w-full md:w-auto px-10 md:px-16 lg:px-20 py-6 md:py-8 lg:py-10 bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl lg:rounded-3xl overflow-hidden hover:bg-brand-red hover:border-brand-red transition-all duration-700 shadow-xl"
+             className="relative group w-full md:w-auto px-10 md:px-16 lg:px-12 py-6 md:py-8 lg:py-5 bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl lg:rounded-xl overflow-hidden hover:bg-brand-red transition-all duration-700 shadow-xl"
            >
-              <div className="relative z-10 flex items-center justify-center gap-4 md:gap-6 lg:gap-8">
-                <Camera size={18} className="md:w-6 md:h-6 lg:w-8 lg:h-8 text-brand-red group-hover:text-white transition-all duration-500" />
-                <span className="text-[10px] md:text-[12px] lg:text-[14px] font-heading font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-white">
+              <div className="relative z-10 flex items-center justify-center gap-4 md:gap-6 lg:gap-4">
+                <Camera size={18} className="lg:w-4 lg:h-4 text-brand-red group-hover:text-white transition-all duration-500" />
+                <span className="text-[10px] md:text-[12px] lg:text-[10px] font-heading font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-white">
                   EMPEZAR PROYECTO
                 </span>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-r from-brand-red to-brand-violet opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
            </button>
         </div>
       </div>
-
-      <style>{`
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
     </section>
   );
 };

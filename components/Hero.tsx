@@ -9,7 +9,7 @@ const Hero: React.FC = () => {
         <div className="relative w-full h-full overflow-hidden">
           {/* Mobile Background */}
           <img 
-            src="https://res.cloudinary.com/drvs81bl0/image/upload/v1767938373/portada_cel_3_piz8dw.png" 
+            src="https://res.cloudinary.com/dhcgob2tx/image/upload/v1771985671/portada_cel_uzftie.png" 
             alt="Dactilar Background Mobile"
             className="block md:hidden w-full h-full object-cover object-center scale-100 animate-[ken-burns_30s_ease-in-out_infinite_alternate]"
           />

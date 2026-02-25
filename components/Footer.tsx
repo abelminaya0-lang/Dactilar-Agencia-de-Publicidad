@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
         <div className="col-span-1 md:col-span-3">
           <a href="#" className="mb-8 block group">
             <img 
-              src="https://res.cloudinary.com/drvs81bl0/image/upload/v1767934726/LOGO_2026-02_yb66me.png" 
+              src="https://res.cloudinary.com/dhcgob2tx/image/upload/v1771985664/LOGO_2026-02_1_v2liyv.png" 
               alt="Dactilar Logo" 
               className="h-14 w-auto object-contain transition-transform group-hover:scale-105"
             />
