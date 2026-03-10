@@ -44,7 +44,7 @@ const VideoAction: React.FC = () => {
   };
 
   return (
-    <section id="video-action" className="relative z-30 -mt-32 md:-mt-64 lg:-mt-72 pb-20 md:pb-32 lg:pb-36 pt-0 flex flex-col items-center justify-center bg-transparent overflow-visible px-6">
+    <section id="video-action" className="relative z-30 -mt-80 md:-mt-64 lg:-mt-72 pb-20 md:pb-32 lg:pb-36 pt-24 md:pt-0 flex flex-col items-center justify-center bg-transparent overflow-visible px-6">
       <div className="absolute top-0 left-[-5%] w-[50%] h-[50%] bg-brand-red/10 blur-[180px] rounded-full pointer-events-none"></div>
       
       <div className="relative z-10 w-full max-w-5xl lg:max-w-6xl xl:max-w-7xl flex flex-col items-center gap-6 md:gap-8 lg:gap-8">

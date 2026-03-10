@@ -3,7 +3,7 @@ import React from 'react';
 
 const Hero: React.FC = () => {
   return (
-    <section id="hero" className="relative h-screen w-full bg-black overflow-hidden flex flex-col justify-center items-center">
+    <section id="hero" className="relative h-[85vh] md:h-screen w-full bg-black overflow-hidden flex flex-col justify-center items-center">
       {/* Background Container - Pure Full Screen */}
       <div className="absolute inset-0 z-0">
         <div className="relative w-full h-full overflow-hidden">
@@ -27,8 +27,8 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Subtle Scroll Indicator */}
-      <div className="absolute bottom-56 md:bottom-72 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20">
-        <div className="w-[1px] h-16 bg-gradient-to-b from-white to-transparent shadow-[0_0_15px_rgba(255,255,255,0.4)]"></div>
+      <div className="absolute bottom-10 md:bottom-72 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20">
+        <div className="w-[1px] h-10 md:h-16 bg-gradient-to-b from-white to-transparent shadow-[0_0_15px_rgba(255,255,255,0.4)]"></div>
       </div>
 
       <style>{`
