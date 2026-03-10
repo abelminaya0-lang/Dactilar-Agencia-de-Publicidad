@@ -133,7 +133,7 @@ const FanCarousel: React.FC<FanCarouselProps> = ({ images, category, isBranding 
   );
 };
 
-const VideoReelItem: React.FC<{src: string, index: number, clientName: string, isActive: boolean, onPlay: (n: number) => void}> = ({ src, index, clientName, isActive, onPlay }) => {
+const VideoReelItem: React.FC<{src: string, poster: string, index: number, clientName: string, isActive: boolean, onPlay: (n: number) => void}> = ({ src, poster, index, clientName, isActive, onPlay }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   
   useEffect(() => {
@@ -162,6 +162,7 @@ const VideoReelItem: React.FC<{src: string, index: number, clientName: string, i
             muted 
             playsInline 
             preload="auto"
+            poster={poster}
             className="w-full h-full object-cover bg-zinc-950" 
           >
              <source src={src} type="video/mp4" />
@@ -251,12 +252,36 @@ const AdvertisingPhotography: React.FC = () => {
   ];
 
   const videoReelsData = [
-    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032528/alamos-final-de-finales_ID09V7Pp_kqm2de.mp4', client: 'Los Álamos' },
-    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772033696/okami_mesa_tepan_vevzdy.mp4', client: 'Okami Sushi Bar' },
-    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032333/insomnio-sab-3_5hlJHFBQ_bdcojw.mp4', client: 'HOUSE MUSIC' },
-    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032329/caja-huancayo-aplicativo-digital_zNx524iB_o51dql.mp4', client: 'Caja Huancayo' },
-    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032312/labrador-valentin-1_EypTPCcu_glmydm.mp4', client: 'Labrador Restaurante' },
-    { src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032306/antonios-ubi_khKmU4JL_p9qytb.mp4', client: 'Antonio Restaurant' }
+    { 
+      src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032528/alamos-final-de-finales_ID09V7Pp_kqm2de.mp4', 
+      poster: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032528/alamos-final-de-finales_ID09V7Pp_kqm2de.jpg',
+      client: 'Los Álamos' 
+    },
+    { 
+      src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772033696/okami_mesa_tepan_vevzdy.mp4', 
+      poster: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772033696/okami_mesa_tepan_vevzdy.jpg',
+      client: 'Okami Sushi Bar' 
+    },
+    { 
+      src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032333/insomnio-sab-3_5hlJHFBQ_bdcojw.mp4', 
+      poster: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032333/insomnio-sab-3_5hlJHFBQ_bdcojw.jpg',
+      client: 'HOUSE MUSIC' 
+    },
+    { 
+      src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032329/caja-huancayo-aplicativo-digital_zNx524iB_o51dql.mp4', 
+      poster: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032329/caja-huancayo-aplicativo-digital_zNx524iB_o51dql.jpg',
+      client: 'Caja Huancayo' 
+    },
+    { 
+      src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032312/labrador-valentin-1_EypTPCcu_glmydm.mp4', 
+      poster: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032312/labrador-valentin-1_EypTPCcu_glmydm.jpg',
+      client: 'Labrador Restaurante' 
+    },
+    { 
+      src: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032306/antonios-ubi_khKmU4JL_p9qytb.mp4', 
+      poster: 'https://res.cloudinary.com/dhcgob2tx/video/upload/v1772032306/antonios-ubi_khKmU4JL_p9qytb.jpg',
+      client: 'Antonio Restaurant' 
+    }
   ];
 
   const scrollToContact = () => {
@@ -322,6 +347,7 @@ const AdvertisingPhotography: React.FC = () => {
                 <VideoReelItem 
                   key={vIdx} 
                   src={video.src} 
+                  poster={video.poster}
                   index={vIdx}
                   clientName={`© PROD. DACTILAR: ${video.client}`}
                   isActive={activeVideoIndex === vIdx}
